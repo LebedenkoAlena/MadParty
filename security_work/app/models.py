@@ -94,13 +94,8 @@ class Organisation(models.Model):
     trade_union_organisation = models.BooleanField(verbose_name="Наличие профсоюзной организации")
     collective_agreement = models.PositiveBigIntegerField(verbose_name="Наличие коллективного договора")
     change_agreement = models.PositiveBigIntegerField(verbose_name="Изменения в колдоговор")
+
     # Labor protection training
     count_of_workers = models.IntegerField(verbose_name="Количество работников, которые должны проходить обучение по охране труда", null=True)
     persnt_of_educated = models.IntegerField(verbose_name="% фактически прошедших такое обучение", null=True)
     timely_passage = models.BooleanField(verbose_name="Своевременное проведение инструктажей по охране труда", null=True)
-
-
-    # Collective agreement
-    trade_union_organisation = models.BooleanField(verbose_name="Наличие профсоюзной организации", null=True)
-    collective_agreement = models.PositiveBigIntegerField(verbose_name="Наличие коллективного договора", null=True)
-    change_agreement = models.PositiveBigIntegerField(verbose_name="Изменения в колдоговор", null=True)

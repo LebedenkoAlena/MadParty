@@ -24,7 +24,7 @@ def signup(request):
 class LoginView(FormView):
     form_class = UserLoginForm
     success_url = '/'
-    template_name = 'base.html'
+    template_name = 'users/login.html'
 
     def form_valid(self, form):
         self.user = form.get_user()

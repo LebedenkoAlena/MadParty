@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+<main>
+    <div class="organisation-list">
+        {% for organisation in organisations %}
+            <div class="organisation">
+                {% for field in organisation %}
+                    {{ field }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

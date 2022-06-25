@@ -10,7 +10,7 @@ class Organisation(models.Model):
     """
     Class, that contains passport of Organisation
     """
-    user_id = models.ForeignKey(default=None, verbose_name='Пользователь', to=User, related_name='user', on_delete=models.SET_NULL)
+    user_id = models.ForeignKey(default=None, verbose_name='Пользователь', to=User, related_name='user', on_delete=models.SET_NULL, null=True)
 
     ANSWER_CHOICES = [
         ("YES", "Да"),
@@ -20,30 +20,30 @@ class Organisation(models.Model):
 
     # General
     opf = models.TextField(verbose_name="ОПФ", null=True, blank=False)
-    name = models.CharField(verbose_name="Название/имя", null=True, blank=False)
-    short_name = models.CharField(verbose_name="Краткое название/имя", null=True, blank=False)
-    address = models.CharField(verbose_name="Юридический адрес", null=True, blank=False)
-    fact_address = models.CharField(verbose_name="Фактический адрес", null=True, blank=False)
-    leader_name = models.CharField(verbose_name="ФИО руководителя и должность", null=True, blank=False)
+    name = models.TextField(verbose_name="Название/имя", null=True, blank=False)
+    short_name = models.TextField(verbose_name="Краткое название/имя", null=True, blank=False)
+    address = models.TextField(verbose_name="Юридический адрес", null=True, blank=False)
+    fact_address = models.TextField(verbose_name="Фактический адрес", null=True, blank=False)
+    leader_name = models.TextField(verbose_name="ФИО руководителя и должность", null=True, blank=False)
     inn = models.CharField(max_length=100, verbose_name="ИНН", null=True, blank=False)
     oktmo = models.CharField(max_length=100, verbose_name="ОКТМО", null=True, blank=False)
     activity_type = models.TextField(verbose_name="Вид деятельности", null=True, blank=False)
-    empoyers_number = models.TextField(verbose_name="Численность работников", null=True, blank=False)
+    workers_number = models.IntegerField(verbose_name="Численность работников", null=True, blank=False)
     leader_phone = models.CharField(max_length=50, verbose_name="Телефон руководителя", null=True, blank=False)
     official_email = models.EmailField(verbose_name="E-mail официальный")
-    name_safety_specialist = models.CharField(verbose_name="ФИО специалиста по охране труда", null=True, blank=False)
+    name_safety_specialist = models.TextField(verbose_name="ФИО специалиста по охране труда", null=True, blank=False)
     specialist_phone = models.CharField(max_length=50, verbose_name="Телефон специалиста по охране труда", null=True, blank=False)
     specialist_email = models.EmailField(verbose_name="E-mail официальный")
     gold_sign = models.BooleanField(verbose_name="Золотой знак", null=True)
     gold_sign_date = models.DateField(verbose_name="Дата получение золотого знака", null=True)
 
     # Occupation safety valuation
-    is_valuation_done = models.CharField(verbose_name="Специальная оценка проведена", choices=ANSWER_CHOICES, null=True, blank=False)
+    is_valuation_done = models.CharField(max_length=50, verbose_name="Специальная оценка проведена", choices=ANSWER_CHOICES, null=True, blank=False)
     report_date = models.DateField(verbose_name="Дата отчета", default=timezone.now)
-    report_number = models.CharField(verbose_name="Номер отчета", null=True, blank=False)
+    report_number = models.CharField(max_length=50, verbose_name="Номер отчета", null=True, blank=False)
     workplace_number = models.IntegerField(verbose_name="Всего рабочих мест")
     workplace_number_with_valuation = models.IntegerField(verbose_name="Количество рабочих мест, на которых проведена СОУТ")
-    valuatied_workplace_percent = models.CharField(max_length=50, verbose_name="Процент рабочих мест, охваченых СОУТ", null=True, blank=False)
+    valuated_workplace_percent = models.CharField(max_length=50, verbose_name="Процент рабочих мест, охваченых СОУТ", null=True, blank=False)
     class1_workplace_number = models.IntegerField(verbose_name="Всего рабочих мест с условием труда 1 класса")
     class1_workers_number = models.IntegerField(verbose_name="Всего человек, работающих на рабочих местах с условием труда 1 класса")
     class2_workplace_number = models.IntegerField(verbose_name="Всего рабочих мест с условием труда 2 класса")
@@ -61,7 +61,7 @@ class Organisation(models.Model):
     workers_on_danger_positions_percent = models.CharField(max_length=50, verbose_name="Процент рабочих на опасных местах", null=True, blank=False)
 
     # Professional risks control
-    is_risk_valuation_done = models.CharField(choices=ANSWER_CHOICES, verbose_name="Оценка проф. рисков проведена", null=True, blank=False)
+    is_risk_valuation_done = models.CharField(max_length=50, choices=ANSWER_CHOICES, verbose_name="Оценка проф. рисков проведена", null=True, blank=False)
     risk_valuation_date = models.DateField(verbose_name="Дата последней проверки проф. рисков")
 
     # Working conditions
@@ -99,16 +99,14 @@ class Organisation(models.Model):
     cabinet_of_first_aid = models.BooleanField(verbose_name="Наличие помещения для оказания медицинской помощи", null=True)
     plan_of_upgrade_workers_conditions = models.BooleanField(verbose_name="Наличие плана мероприятий по улучшению и оздоровлению условий труда", null=True)
     financing_plan = models.IntegerField(verbose_name="Объем финансирования плана мероприятий по улучшению и оздоровлению условий труда (тыс. руб.)", null=True)
-    programm_of_saving_aid_of_workers = models.BooleanField(verbose_name="Наличие корпоративной программы сохранения здоровья работников", null=True)
+    program_of_saving_aid_of_workers = models.BooleanField(verbose_name="Наличие корпоративной программы сохранения здоровья работников", null=True)
 
     # Labor protection training
     count_of_workers = models.IntegerField(verbose_name="Количество работников, которые должны проходить обучение по охране труда", null=True)
-    persnt_of_educated = models.CharField(max_length=50, verbose_name="% фактически прошедших такое обучение", null=True)
+    percent_of_educated = models.CharField(max_length=50, verbose_name="% фактически прошедших такое обучение", null=True)
     timely_passage = models.BooleanField(verbose_name="Своевременное проведение инструктажей по охране труда", null=True)
 
     # Collective agreement
     trade_union_organisation = models.BooleanField(verbose_name="Наличие профсоюзной организации")
-    collective_agreement = models.CharField(verbose_name="Наличие коллективного договора")
-    change_agreement = models.CharField(verbose_name="Изменения в колдоговор")
-
-
+    collective_agreement = models.TextField(verbose_name="Наличие коллективного договора")
+    change_agreement = models.TextField(verbose_name="Изменения в колдоговор")

@@ -1,0 +1,23 @@
+{% extends 'includes/base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<main>
+    <form method='post'>
+        {% csrf_token %}
+        <h1>Вход в аккаунт</h1>
+        <section id="fields">
+            {% for field in form %}
+            {{ field.errors }}
+            <div class="form-floating">
+                {{ field }}
+                <label for="{{ field.id_for_label }}">{{ field.label}}</label>
+            </div>
+            {% endfor %}
+        </section>
+        <p><small>Еще нет аккауна? <a href="{% url 'signup' %}">Зарегистрироваться</a></small></p>
+        <button type="submit">Войти</button>
+    </form>
+</main>
+{% endblock %}

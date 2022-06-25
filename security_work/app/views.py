@@ -11,6 +11,24 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     CollectiveAgreementForm, OrganisationForm)
 from django.contrib.auth.decorators import login_required
 from .models import Organisation
+from fpdf import FPDF
+
+
+def PassportToPDF(Org):
+    #TODO Сделать поля на русском и выбрать место/способо сохранения файла
+    pdf = FPDF()
+    pdf.set_font("Arial", size=12)
+    pdf.add_page()
+    data = serializers.serialize("python", [Org])[0]["fields"]
+    col_width = pdf.w / 2.5
+    row_height = pdf.font_size * 3
+    for key, value in data.items():
+        pdf.cell(col_width, row_height,
+                 txt=str(key), border=1)
+        pdf.cell(col_width, row_height,
+                 txt=str(value), border=1)
+        pdf.ln(row_height)
+    pdf.output('simple_table.pdf')
 
 
 def user_lk(request):
@@ -19,7 +37,6 @@ def user_lk(request):
 
     user = request.user
     organisations = Organisation.objects.filter(user_id=user.id).all()
-    print(organisations)
     return render(request, "lk.html", {
         "organisations": serializers.serialize("python", organisations)
     })

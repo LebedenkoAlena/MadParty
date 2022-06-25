@@ -13,18 +13,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-2 mb-2">{{ form.username }}</div>
+                    <div class="col mt-2 mb-2">
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-2 mb-2">{{ form.first_name }}</div>
-                    <div class="col mt-2 mb-2">{{ form.last_name }}</div>
+                    <div class="col mt-2 mb-2">
+                        {{ form.first_name }}
+                        {{ form.first_name.errors }}
+                    </div>
+                    <div class="col mt-2 mb-2">
+                        {{ form.last_name }}
+                        {{ form.last_name.errors }}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-2 mb-2">{{ form.email }}</div>
+                    <div class="col mt-2 mb-2">
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-2 mb-2">{{ form.password1 }}</div>
-                    <div class="col mt-2 mb-2">{{ form.password2 }}</div>
+                    <div class="col mt-2 mb-2">
+                        {{ form.password1 }}
+                        {{ form.password1.errors }}
+                        {{ form.password2.errors }}
+                    </div>
+                    <div class="col mt-2 mb-2">
+                        {{ form.password2 }}
+                    </div>
                 </div>
                 {% if form.non_field_errors %}
                     <div class="row">

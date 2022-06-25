@@ -13,7 +13,7 @@ class PlaceholderWidgetFormMixin(forms.Form):
             field.widget.attrs.update({"placeholder": field.label, "type": field.widget.input_type, "name": name})
 
 
-class CreateUserForm(PlaceholderWidgetFormMixin, UserCreationForm):
+class UserCreateForm(PlaceholderWidgetFormMixin, UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "email"]

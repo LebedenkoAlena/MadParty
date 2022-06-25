@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Organisation
 from django.core import serializers
 from .forms import OrganisationForm
+from .models import Organisation
 
 
-# Create your views here.
 def user_lk(request):
     if not request.user.is_authenticated:
         return redirect('/')

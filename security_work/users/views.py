@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
 from django.urls import reverse_lazy
-from django.views.generic import FormView, View
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreateForm, UserLoginForm
 from django.contrib.auth import get_user_model, login
@@ -19,8 +17,8 @@ def create_user(request):
     if request.method == "POST":
         if form.is_valid():
             form.non_field_errors()
-            if User.objects.get(email=form.cleaned_data["email"]):
-                form.add_error("__all__", "Пользователь с такой почтной уже существует.")
+            if User.objects.filter(email=form.cleaned_data["email"]):
+                form.add_error("__all__", "Пользователь с такой почтой уже существует.")
             else:
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data["password1"])

@@ -1,0 +1,42 @@
+input {
+    width: 100%;
+}
+
+input:not([type=submit]) {
+    background: #F7F7F7;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+}
+
+form input {
+    min-width: 230px;
+}
+
+input:not([type=submit]):focus {
+    box-shadow: 0px 0px 0px 1px black;
+}
+
+input:not([type=submit])::placeholder {
+    color: #A9A9A9;
+}
+
+input[type=submit] {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+form .errorlist {
+    margin: 0;
+    padding: 0;
+}
+
+form .errorlist li {
+    list-style-type: none;
+    font-size: 14px;
+    color: red;
+}

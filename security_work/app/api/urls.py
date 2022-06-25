@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import TestAPIView
+from .views import PassportAPIView
 
 urlpatterns = [
-    path('test-api/', TestAPIView.as_view(), name='test'),
+    path('passport/edit/', PassportAPIView.as_view(), name='passport_edit'),
 ]

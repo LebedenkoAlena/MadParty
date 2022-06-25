@@ -1,23 +1,47 @@
-{% extends 'includes/base.html' %}
-{% load static %}
+{% extends 'base.html' %}
 
 {% block title %}Регистрация{% endblock %}
 
 {% block content %}
-<main>
-    <form method="post">
-        {% csrf_token %}
-        <section id="fields">
-            {% for field in form %}
-            {{ field.errors }}
-            <div>
-                {{ field }}
-                <label for="{{ field.id_for_label }}">{{ field.label}}</label>
-            </div>
-            {% endfor %}
-        </section>
-        <p><small>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></small></p>
-        <button type="submit">Продолжить</button>
-    </form>
-</main>
+    <div class="row justify-content-center">
+        <div class="col col-md-8">
+            <form method='post' action="" class="mt-5">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <h1 class="text-center text-vertical-center">Регистрация</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-2 mb-2">{{ form.username }}</div>
+                </div>
+                <div class="row">
+                    <div class="col mt-2 mb-2">{{ form.first_name }}</div>
+                    <div class="col mt-2 mb-2">{{ form.last_name }}</div>
+                </div>
+                <div class="row">
+                    <div class="col mt-2 mb-2">{{ form.email }}</div>
+                </div>
+                <div class="row">
+                    <div class="col mt-2 mb-2">{{ form.password1 }}</div>
+                    <div class="col mt-2 mb-2">{{ form.password2 }}</div>
+                </div>
+                {% if form.non_field_errors %}
+                    <div class="row">
+                        <div class="col mt-2 mb-2">
+                            {{ form.non_field_errors }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col mt-2 mb-2">
+                        <input type="submit" value="Регистрация">
+                    </div>
+                    <div class="col mt-2 mb-2 text-center text-vertical-center justify-content-center">
+                        <span>Уже есть аккаунт?<br><a href="{% url 'login' %}">Войти</a></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -1,23 +1,42 @@
-{% extends 'includes/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-<main>
-    <form method='post'>
-        {% csrf_token %}
-        <h1>Вход в аккаунт</h1>
-        <section id="fields">
-            {% for field in form %}
-            {{ field.errors }}
-            <div class="form-floating">
-                {{ field }}
-                <label for="{{ field.id_for_label }}">{{ field.label}}</label>
-            </div>
-            {% endfor %}
-        </section>
-        <p><small>Еще нет аккауна? <a href="{% url 'signup' %}">Зарегистрироваться</a></small></p>
-        <button type="submit">Войти</button>
-    </form>
-</main>
+    <div class="row justify-content-center">
+        <div class="col col-md-8">
+            <form method='post' action="" class="mt-5">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <h1 class="text-center text-vertical-center">Авторизация</h1>
+                    </div>
+                </div>
+
+                {% for field in form %}
+                    <div class="row">
+                        <div class="col mt-3 mb-2">
+                            {{ field }}
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <div class="row">
+                        <div class="col mt-2 mb-2">
+                            {{ form.non_field_errors }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col mt-2 mb-2">
+                        <input type="submit" value="Войти">
+                    </div>
+                    <div class="col mt-2 mb-2 text-center text-vertical-center justify-content-center">
+                        <span>Ещё нет аккаунта?<br><a href="{% url 'signup' %}">Зарегистрироваться</a></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, View
+from django.contrib.auth.views import LoginView
 from .forms import CreateUserForm, UserLoginForm
 from django.contrib.auth import get_user_model, logout, login
 
@@ -21,15 +22,11 @@ def signup(request):
     return render(request, template_name, context)
 
 
-class LoginView(FormView):
+class UserLoginView(LoginView):
     form_class = UserLoginForm
+    authentication_form = UserLoginForm
     success_url = '/'
-    template_name = 'base.html'
-
-    def form_valid(self, form):
-        self.user = form.get_user()
-        login(self.request, self.user)
-        return super().form_valid(form)
+    template_name = 'users/login.html'
 
 
 class Logout(View):

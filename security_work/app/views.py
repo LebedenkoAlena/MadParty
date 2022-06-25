@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Organisation
 from django.core import serializers
+from .forms import OrganisationForm
 
 
 # Create your views here.
@@ -18,3 +19,18 @@ def user_lk(request):
 
 def homepage(request):
     return render(request, "homepage.html")
+
+
+# TODO возможность загрузить файлы для каждого поля
+def add_organisation(request):
+    form = OrganisationForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('/lk/')
+
+    return render(request, "add_organisation.html", {
+        'form': form
+    })
+
+# TODO Сделать редактирование

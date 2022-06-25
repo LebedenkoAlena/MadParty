@@ -3,14 +3,14 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views import View
-from security_work.app.forms import (GeneralOrgForm, OccupationSafetyForm,
-                                     ProfessionalRiskForm,
-                                     WorkingConditionsForm,
-                                     IndustrialInjuriesForm, CommonDataForm,
-                                     LaborProtectionTrainingForm,
-                                     CollectiveAgreementForm, OrganisationForm)
+from .forms import (GeneralOrgForm, OccupationSafetyForm,
+                    ProfessionalRiskForm,
+                    WorkingConditionsForm,
+                    IndustrialInjuriesForm, CommonDataForm,
+                    LaborProtectionTrainingForm,
+                    CollectiveAgreementForm, OrganisationForm)
 from django.contrib.auth.decorators import login_required
-from security_work.app.models import Organisation
+from .models import Organisation
 
 
 def user_lk(request):

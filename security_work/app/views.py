@@ -9,7 +9,7 @@ def user_lk(request):
         return redirect('/')
 
     user = request.user
-    organisations = Organisation.objects.filter(user=user.id)
+    organisations = Organisation.objects.filter(user_id=user.id)
 
     return render(request, "lk.html", {
         "organisations": organisations

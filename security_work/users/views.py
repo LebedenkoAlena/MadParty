@@ -20,7 +20,7 @@ def create_user(request):
         if form.is_valid():
             form.non_field_errors()
             if User.objects.filter(email=form.cleaned_data["email"]):
-                form.add_error("__all__", "Пользователь с такой почтной уже существует.")
+                form.add_error("__all__", "Пользователь с такой почтой уже существует.")
             else:
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data["password1"])

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from .forms import OrganisationForm
 from .models import Organisation
+from django.contrib.auth.models import User
 
 
 def user_lk(request):
@@ -9,11 +10,19 @@ def user_lk(request):
         return redirect('/')
 
     user = request.user
-    organisations = Organisation.objects.filter(user_id=user.id)
-
+    organisations = Organisation.objects.filter(user_id=user.id).all()
+    print(organisations)
     return render(request, "lk.html", {
         "organisations": serializers.serialize("python", organisations)
     })
+
+
+def admin_lk(request):
+    context = {}
+    users = User.objects.all()
+    for user in users:
+        context['users'] = context.get('users', []) + [[user, serializers.serialize('python', Organisation.objects.filter(user_id=user.id))]]
+    return render(request, 'lk_admin.html', context)
 
 
 def homepage(request):

@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect
 from django.core import serializers
-from .forms import OrganisationForm
-from .models import Organisation
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.views import View
+from security_work.app.forms import (GeneralOrgForm, OccupationSafetyForm,
+                                     ProfessionalRiskForm,
+                                     WorkingConditionsForm,
+                                     IndustrialInjuriesForm, CommonDataForm,
+                                     LaborProtectionTrainingForm,
+                                     CollectiveAgreementForm, OrganisationForm)
+from django.contrib.auth.decorators import login_required
+from security_work.app.models import Organisation
 
 
 def user_lk(request):
@@ -21,7 +29,11 @@ def admin_lk(request):
     context = {}
     users = User.objects.all()
     for user in users:
-        context['users'] = context.get('users', []) + [[user, serializers.serialize('python', Organisation.objects.filter(user_id=user.id))]]
+        context['users'] = context.get('users', []) + [[user,
+                                                        serializers.serialize(
+                                                            'python',
+                                                            Organisation.objects.filter(
+                                                                user_id=user.id))]]
     return render(request, 'lk_admin.html', context)
 
 
@@ -41,4 +53,25 @@ def add_organisation(request):
         'form': form
     })
 
+
 # TODO Сделать редактирование
+@login_required
+class PassportOrgView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def get(self, request):
+        data = {'org_forms': [GeneralOrgForm,
+                              OccupationSafetyForm,
+                              ProfessionalRiskForm,
+                              WorkingConditionsForm,
+                              IndustrialInjuriesForm,
+                              CommonDataForm,
+                              LaborProtectionTrainingForm,
+                              CollectiveAgreementForm]}
+        return render(request, 'add_organisation.html', context=data)
+
+    # def post(self, request):
+    #     data = {"org_form": OrganisationForm}
+    #     return render(request, '', context=data)

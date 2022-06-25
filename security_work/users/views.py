@@ -14,7 +14,7 @@ def signup(request):
         if form.is_valid():
             if not User.objects.filter(email=form.cleaned_data['email']):
                 form.save()
-                return redirect('')
+                return redirect('/')
             else:
                 form_error = f'Почта {form.cleaned_data["email"]} уже используется'
     context = {'form': form, 'form_error': form_error}

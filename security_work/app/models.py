@@ -39,7 +39,7 @@ class Organisation(models.Model):
 
     # Occupation safety valuation
     is_valuation_done = models.CharField(max_length=50, verbose_name="Специальная оценка проведена", choices=ANSWER_CHOICES, null=True, blank=True)
-    report_date = models.DateField(verbose_name="Дата отчета", default=timezone.now, blank=True)
+    report_date = models.DateField(verbose_name="Дата отчета", default=timezone.now, blank=True, null=True)
     report_number = models.CharField(max_length=50, verbose_name="Номер отчета", null=True, blank=True)
     workplace_number = models.IntegerField(verbose_name="Всего рабочих мест", null=True, blank=True)
     workplace_number_with_valuation = models.IntegerField(verbose_name="Количество рабочих мест, на которых проведена СОУТ", null=True, blank=True)

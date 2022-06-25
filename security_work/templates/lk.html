@@ -7,11 +7,14 @@
 <main>
     <div class="organisation-list">
         {% for organisation in organisations %}
+        <strong>Organisation {{ forloop.counter }}</strong>
             <div class="organisation">
-                {% for field in organisation %}
-                    {{ field }}
+                {% for field, value in organisation.fields.items %}
+                    {{ field }}: {{ value }}
+                    <br>
                 {% endfor %}
             </div>
+        <br>
         {% endfor %}
     </div>
 </main>

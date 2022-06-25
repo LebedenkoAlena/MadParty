@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+<main>
+    <div class="organisation-list">
+        {% for organisation in organisations %}
+        <strong>Organisation {{ forloop.counter }}</strong>
+            <div class="organisation">
+                {% for field, value in organisation.fields.items %}
+                    {{ field }}: {{ value }}
+                    <br>
+                {% endfor %}
+            </div>
+        <br>
+        {% endfor %}
+    </div>
+    <a href="/addOrganisation/">Добавить организацию</a>
+</main>
+{% endblock %}

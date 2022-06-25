@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добавить организацию{% endblock %}
+
+{% block content %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+        <section id="fields">
+            {% for field in form %}
+            {{ field.errors }}
+            <div>
+                {{ field }}
+                <label for="{{ field.id_for_label }}">{{ field.label}}</label>
+            </div>
+            {% endfor %}
+        </section>
+        <button type="submit">Продолжить</button>
+    </form>
+</main>
+{% endblock %}

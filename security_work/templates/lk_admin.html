@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+<main>
+    <div>
+        {% for user, organisations in users %}
+        {{user}}
+        <p>{{user.first_name}} {{user.last_name}} {{user.id}}</p>
+    <div class="organisation-list">
+        {% for organisation in organisations %}
+        <strong> {{ forloop.counter }}</strong>
+            <div class="organisation">
+                {% for field, value in organisation.fields.items %}
+                    {{ field }}: {{ value }}
+                    <br>
+                {% endfor %}
+            </div>
+        <br>
+        {% endfor %}
+    </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

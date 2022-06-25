@@ -1,13 +1,17 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
 
-# Create your models here.
+User = get_user_model()
+
+
 class Organisation(models.Model):
     """
     Class, that contains passport of Organisation
     """
-    user_id = models.ForeignKey()
+    user_id = models.ForeignKey(default=None, verbose_name='Пользователь', to=User, related_name='user', on_delete=models.SET_NULL)
+
     ANSWER_CHOICES = [
         ("YES", "Да"),
         ("NO", "Нет"),

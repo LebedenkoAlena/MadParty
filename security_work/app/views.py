@@ -1,19 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core import serializers
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views import View
-
 from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     ProfessionalRiskForm,
                     WorkingConditionsForm,
                     IndustrialInjuriesForm, CommonDataForm,
                     LaborProtectionTrainingForm,
                     CollectiveAgreementForm, OrganisationForm)
-
 from .models import Organisation
-
 import datetime as dt
 
 
@@ -117,8 +116,13 @@ class GeneralOrgView(LoginRequiredMixin, View):
 
     def post(self, request, id):
         data = {'form': GeneralOrgForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+        form = GeneralOrgForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=id)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
 
 
 class OccupationSafetyView(LoginRequiredMixin, View):

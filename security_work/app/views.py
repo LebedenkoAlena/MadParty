@@ -27,15 +27,15 @@ def PassportToPDF(Org):
             value = 'Да'
         if value is False:
             value = 'Нет'
-        if key == 'is_valuation_done':
+        if key == 'is_risk_valuation_done' or key == 'is_valuation_done':
             d = {"YES": "Да",  "NO": "Нет", "PARTIALLY": "Частично"}
-            value = d[value]
+            value = d.get(value, '')
         pdf.multi_cell(col_width, row_height,
                  txt=str(Org._meta.get_field(key).verbose_name), border=1)
         pdf.multi_cell(col_width, row_height,
                  txt=str(value), border=1)
         pdf.ln(row_height)
-    pdf.output('simple_table.pdf')
+    pdf.output(f'{Org.id}.pdf')
 
 
 def user_lk(request):

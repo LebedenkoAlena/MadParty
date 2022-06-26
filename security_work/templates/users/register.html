@@ -44,6 +44,12 @@
                         {{ form.password2 }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                            {{ form.user_accept }}
+                            <span>{{ form.user_accept.label }}<span>
+                    </div>
+                </div>
                 {% if form.non_field_errors %}
                     <div class="row">
                         <div class="col mt-2 mb-2">

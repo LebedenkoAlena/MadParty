@@ -4,7 +4,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreateForm, UserLoginForm
 from django.contrib.auth import get_user_model, login
 
-
 User = get_user_model()
 
 
@@ -17,10 +16,12 @@ def create_user(request):
 
     if request.method == "POST":
         if form.is_valid():
-            form.non_field_errors()
             if User.objects.filter(email=form.cleaned_data["email"]):
                 form.add_error("__all__",
                                "Пользователь с такой почтой уже существует.")
+            elif not form.cleaned_data["user_accept"]:
+                form.add_error("__all__",
+                               "Вы должны ознакомиться с порядком проведения мониторинга и поставить галочку")
             else:
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data["password1"])
@@ -43,5 +44,3 @@ class UserLoginView(LoginView):
 
 class LogoutView(LogoutView):
     next_page = reverse_lazy("login")
-
-

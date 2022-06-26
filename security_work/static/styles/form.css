@@ -54,6 +54,13 @@ label {
     font-weight: 600;
 }
 
+input[type="checkbox"] {
+    min-width: 0 !important;
+    width: fit-content !important;
+    padding: 0;
+    margin: 10px;
+}
+
 .v-enter-active,
 .v-leave-active {
     transition: .3s ease;

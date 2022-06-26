@@ -28,12 +28,12 @@ def PassportToPDF(Org):
         if value is False:
             value = 'Нет'
         if key == 'is_risk_valuation_done' or key == 'is_valuation_done':
-            d = {"YES": "Да",  "NO": "Нет", "PARTIALLY": "Частично"}
+            d = {"YES": "Да", "NO": "Нет", "PARTIALLY": "Частично"}
             value = d.get(value, '')
         pdf.multi_cell(col_width, row_height,
-                 txt=str(Org._meta.get_field(key).verbose_name), border=1)
+                       txt=str(Org._meta.get_field(key).verbose_name), border=1)
         pdf.multi_cell(col_width, row_height,
-                 txt=str(value), border=1)
+                       txt=str(value), border=1)
         pdf.ln(row_height)
     pdf.output(f'{Org.id}.pdf')
 
@@ -73,8 +73,15 @@ def add_organisation(request):
             form.save()
             return redirect('/lk/')
 
-    return render(request, "add_organisation.html", {
-        'form': form
+    return render(request, "organizations/add_organization.html", {
+        'forms': [GeneralOrgForm,
+                  OccupationSafetyForm,
+                  ProfessionalRiskForm,
+                  WorkingConditionsForm,
+                  IndustrialInjuriesForm,
+                  CommonDataForm,
+                  LaborProtectionTrainingForm,
+                  CollectiveAgreementForm]
     })
 
 
@@ -94,7 +101,7 @@ class PassportOrgView(View):
                               CommonDataForm,
                               LaborProtectionTrainingForm,
                               CollectiveAgreementForm]}
-        return render(request, 'add_organisation.html', context=data)
+        return render(request, 'organizations/add_organisation.html', context=data)
 
     # def post(self, request):
     #     data = {"org_form": OrganisationForm}

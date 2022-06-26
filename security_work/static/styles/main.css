@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 header {
     border-bottom: 2px solid #F0F0F0;
     padding: 20px 0;

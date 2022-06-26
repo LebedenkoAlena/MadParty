@@ -5,7 +5,7 @@ from django import forms
 User = get_user_model()
 
 
-class PlaceholderWidgetFormMixin(forms.Form):
+class SubAttrsFormMixin(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -13,12 +13,12 @@ class PlaceholderWidgetFormMixin(forms.Form):
             field.widget.attrs.update({"placeholder": field.label, "type": field.widget.input_type, "name": name})
 
 
-class UserCreateForm(PlaceholderWidgetFormMixin, UserCreationForm):
+class UserCreateForm(SubAttrsFormMixin, UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "email"]
 
 
-class UserLoginForm(PlaceholderWidgetFormMixin, AuthenticationForm):
+class UserLoginForm(SubAttrsFormMixin, AuthenticationForm):
     class Meta:
         model = User

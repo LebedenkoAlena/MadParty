@@ -2,6 +2,14 @@ from django import forms
 from .models import Organisation
 
 
+class SubAttrsFormMixin(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({"placeholder": field.label, "name": name})
+
+
 class OrganisationForm(forms.ModelForm):
     class Meta:
         model = Organisation
@@ -18,6 +26,11 @@ class OrganisationForm(forms.ModelForm):
 
 
 class GeneralOrgForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Общие сведения"
+
     class Meta:
         model = Organisation
         fields = ['opf',
@@ -38,6 +51,11 @@ class GeneralOrgForm(forms.ModelForm):
 
 
 class OccupationSafetyForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Специальная оценка условий труда (СОУТ)"
+
     class Meta:
         model = Organisation
         fields = ['is_valuation_done',
@@ -62,6 +80,11 @@ class OccupationSafetyForm(forms.ModelForm):
 
 
 class ProfessionalRiskForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Управление профрисками"
+
     class Meta:
         model = Organisation
         fields = ['is_risk_valuation_done',
@@ -69,6 +92,11 @@ class ProfessionalRiskForm(forms.ModelForm):
 
 
 class WorkingConditionsForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Условия труда"
+
     class Meta:
         model = Organisation
         fields = ['workers_number_with_free_coveralls',
@@ -77,6 +105,11 @@ class WorkingConditionsForm(forms.ModelForm):
 
 
 class IndustrialInjuriesForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Производственный травматизм"
+
     class Meta:
         model = Organisation
         fields = ['number_of_died_workers',
@@ -92,6 +125,11 @@ class IndustrialInjuriesForm(forms.ModelForm):
 
 
 class CommonDataForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Общие данные"
+
     class Meta:
         model = Organisation
         fields = ['normative_act',
@@ -106,6 +144,11 @@ class CommonDataForm(forms.ModelForm):
 
 
 class LaborProtectionTrainingForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Обучение по охране труда"
+
     class Meta:
         model = Organisation
         fields = ['count_of_workers',
@@ -113,6 +156,11 @@ class LaborProtectionTrainingForm(forms.ModelForm):
 
 
 class CollectiveAgreementForm(forms.ModelForm):
+
+    @property
+    def title(self):
+        return "Коллективный договор"
+
     class Meta:
         model = Organisation
         fields = ['trade_union_organisation',

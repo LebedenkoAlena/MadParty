@@ -76,9 +76,9 @@ def add_organisation(request):
             org = form.save()
             Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
-
+    org = Organisation.objects.first()
     return render(request, "organizations/add_organization.html", {
-        'forms': [GeneralOrgForm,
+        'forms': [GeneralOrgForm(data=org),
                   OccupationSafetyForm,
                   ProfessionalRiskForm,
                   WorkingConditionsForm,
@@ -86,28 +86,8 @@ def add_organisation(request):
                   CommonDataForm,
                   LaborProtectionTrainingForm,
                   CollectiveAgreementForm],
-        'organization': Organisation.objects.first()
+        'organization': org
     })
-
-
-# TODO Сделать редактирование
-
-class PassportOrgView(LoginRequiredMixin, View):
-    login_url = reverse_lazy('login')
-    redirect_field_name = 'login'
-    model = Organisation
-
-    def get(self, request):
-        data = {'org_forms': [GeneralOrgForm,
-                              OccupationSafetyForm,
-                              ProfessionalRiskForm,
-                              WorkingConditionsForm,
-                              IndustrialInjuriesForm,
-                              CommonDataForm,
-                              LaborProtectionTrainingForm,
-                              CollectiveAgreementForm]}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
 
 
 class GeneralOrgView(LoginRequiredMixin, View):
@@ -115,15 +95,15 @@ class GeneralOrgView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': GeneralOrgForm}
+    def post(self, request, pk):
         form = GeneralOrgForm(request.POST or None)
         if form.is_valid():
-            org = Organisation.objects.get(id=id)
+            org = Organisation.objects.get(id=pk)
             for k, v in form.cleaned_data.items():
                 eval(f"org.{k} = {v}")
             org.save()
             return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class OccupationSafetyView(LoginRequiredMixin, View):
@@ -131,10 +111,15 @@ class OccupationSafetyView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': OccupationSafetyForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = OccupationSafetyForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class ProfessionalRiskView(LoginRequiredMixin, View):
@@ -142,10 +127,15 @@ class ProfessionalRiskView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': ProfessionalRiskForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = ProfessionalRiskForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class WorkingConditionsView(LoginRequiredMixin, View):
@@ -153,10 +143,15 @@ class WorkingConditionsView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': WorkingConditionsForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = WorkingConditionsForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class IndustrialInjuriesView(LoginRequiredMixin, View):
@@ -164,10 +159,15 @@ class IndustrialInjuriesView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': IndustrialInjuriesForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = IndustrialInjuriesForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class CommonDataView(LoginRequiredMixin, View):
@@ -175,10 +175,15 @@ class CommonDataView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': CommonDataForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = CommonDataForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class LaborProtectionTrainingView(LoginRequiredMixin, View):
@@ -186,10 +191,15 @@ class LaborProtectionTrainingView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': LaborProtectionTrainingForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = LaborProtectionTrainingForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")
 
 
 class CollectiveAgreementView(LoginRequiredMixin, View):
@@ -197,7 +207,12 @@ class CollectiveAgreementView(LoginRequiredMixin, View):
     redirect_field_name = 'login'
     model = Organisation
 
-    def post(self, request, id):
-        data = {'form': CollectiveAgreementForm}
-        return render(request, 'organizations/add_organisation.html',
-                      context=data)
+    def post(self, request, pk):
+        form = CollectiveAgreementForm(request.POST or None)
+        if form.is_valid():
+            org = Organisation.objects.get(id=pk)
+            for k, v in form.cleaned_data.items():
+                eval(f"org.{k} = {v}")
+            org.save()
+            return HttpResponse("OK")
+        return HttpResponse("BAD")

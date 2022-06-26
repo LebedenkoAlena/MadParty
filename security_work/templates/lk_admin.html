@@ -46,8 +46,8 @@
                             </div>
                             <div class="org__actions">
                                 <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/edit.png' %}"></a>
-                                <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/pdf.png' %}"></a>
-                                <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/xml.png' %}"></a>
+                                <a target="_blank" href="{% url 'org-pdf' pk=org.id %}"><img src="{% static 'img/pdf.png' %}"></a>
+                                <a target="_blank" href="{% url 'org-xml' pk=org.id %}"><img src="{% static 'img/xml.png' %}"></a>
                             </div>
                         </div>
                     {% empty %}

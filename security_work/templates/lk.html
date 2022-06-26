@@ -37,14 +37,18 @@
                         </div>
                     </div>
                 {% empty %}
+                    <div class="row">
+                        <div class="col">
+                            Вы ещё не добавили ни однй организации...
+                        </div>
+                    </div>
                 {% endfor %}
+                {% if organizations.count > 0 %}
+                    <a class="org-add" href="{% url 'org-create' %}">
+                        <span>+</span>
+                    </a>
+                {% endif %}
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="button"><a href="{% url 'org-create' %}">Добавить организацию</a></div>
         </div>
     </div>
 {% endblock %}

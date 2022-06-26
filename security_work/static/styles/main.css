@@ -167,6 +167,10 @@ h2 {
 .org {
     border: 1px solid black;
     margin: 10px;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .org__id {
@@ -177,6 +181,25 @@ h2 {
 
 .org__sign {
     padding: 10px;
+    height: auto;
+    height: 100%;
+}
+
+.org-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #E1E1E1;
+    margin: 10px;
+    border-radius: 5px;
+    background: #F7F7F7;
+    min-height: 150px;
+}
+
+.org-add > span {
+    font-size: 60px;
+    color: #E1E1E1;
 }
 
 .org__actions {

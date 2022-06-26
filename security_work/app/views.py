@@ -98,13 +98,9 @@ class GeneralOrgView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = GeneralOrgForm(request.POST or None)
+        form = GeneralOrgForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-                print(k, v)
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 

@@ -36,18 +36,10 @@
                             {% endif %}
                         </div>
                     </div>
-                {% empty %}
-                    <div class="row">
-                        <div class="col">
-                            Вы ещё не добавили ни однй организации...
-                        </div>
-                    </div>
                 {% endfor %}
-                {% if organizations.count > 0 %}
-                    <a class="org-add" href="{% url 'org-create' %}">
-                        <span>+</span>
-                    </a>
-                {% endif %}
+                <a class="org-add" href="{% url 'org-create' %}">
+                    <span>+</span>
+                </a>
             </div>
         </div>
     </div>

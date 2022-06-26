@@ -80,8 +80,15 @@ def add_organisation(request):
             Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
 
-    return render(request, "add_organisation.html", {
-        'form': form
+    return render(request, "organizations/add_organization.html", {
+        'forms': [GeneralOrgForm,
+                  OccupationSafetyForm,
+                  ProfessionalRiskForm,
+                  WorkingConditionsForm,
+                  IndustrialInjuriesForm,
+                  CommonDataForm,
+                  LaborProtectionTrainingForm,
+                  CollectiveAgreementForm]
     })
 
 
@@ -101,7 +108,7 @@ class PassportOrgView(View):
                               CommonDataForm,
                               LaborProtectionTrainingForm,
                               CollectiveAgreementForm]}
-        return render(request, 'add_organisation.html', context=data)
+        return render(request, 'organizations/add_organisation.html', context=data)
 
     # def post(self, request):
     #     data = {"org_form": OrganisationForm}

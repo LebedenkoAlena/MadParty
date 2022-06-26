@@ -78,16 +78,15 @@ def add_organisation(request):
             Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
     org = Organisation.objects.first()
-    data = dict(model_to_dict(org).items())
     return render(request, "organizations/add_organization.html", {
         'forms': [GeneralOrgForm(instance=org),
-                  OccupationSafetyForm,
-                  ProfessionalRiskForm,
-                  WorkingConditionsForm,
-                  IndustrialInjuriesForm,
-                  CommonDataForm,
-                  LaborProtectionTrainingForm,
-                  CollectiveAgreementForm],
+                  OccupationSafetyForm(instance=org),
+                  ProfessionalRiskForm(instance=org),
+                  WorkingConditionsForm(instance=org),
+                  IndustrialInjuriesForm(instance=org),
+                  CommonDataForm(instance=org),
+                  LaborProtectionTrainingForm(instance=org),
+                  CollectiveAgreementForm(instance=org)],
         'organization': org
     })
 
@@ -98,6 +97,7 @@ class GeneralOrgView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
+        print(request.POST)
         form = GeneralOrgForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
             form.save()

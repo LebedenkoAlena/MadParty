@@ -25,7 +25,7 @@ const organizations = Vue.createApp({
                 let data = new FormData(document.querySelector("#activeForm"))
 
                 let url = `http://127.0.0.1:8000/organization/edit/${this.organizationID}/${this.currentForm}`
-                axios.post(url).then(response => {
+                axios.post(url, data).then(response => {
                     console.log(response)
                 })
                 this.currentForm += 1

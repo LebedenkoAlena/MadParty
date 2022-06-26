@@ -14,6 +14,7 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     CollectiveAgreementForm, OrganisationForm)
 from .models import Organisation
 import datetime as dt
+from django.forms.models import model_to_dict
 
 
 @login_required
@@ -77,15 +78,16 @@ def add_organisation(request):
             Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
     org = Organisation.objects.first()
+    data = dict(model_to_dict(org).items())
     return render(request, "organizations/add_organization.html", {
-        'forms': [GeneralOrgForm(data=org),
-                  OccupationSafetyForm,
-                  ProfessionalRiskForm,
-                  WorkingConditionsForm,
-                  IndustrialInjuriesForm,
-                  CommonDataForm,
-                  LaborProtectionTrainingForm,
-                  CollectiveAgreementForm],
+        'forms': [GeneralOrgForm(data=data),
+                  OccupationSafetyForm(data=data),
+                  ProfessionalRiskForm(data=data),
+                  WorkingConditionsForm(data=data),
+                  IndustrialInjuriesForm(data=data),
+                  CommonDataForm(data=data),
+                  LaborProtectionTrainingForm(data=data),
+                  CollectiveAgreementForm(data=data)],
         'organization': org
     })
 
@@ -101,6 +103,7 @@ class GeneralOrgView(LoginRequiredMixin, View):
             org = Organisation.objects.get(id=pk)
             for k, v in form.cleaned_data.items():
                 eval(f"org.{k} = {v}")
+                print(k, v)
             org.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")

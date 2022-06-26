@@ -166,4 +166,13 @@ h2 {
 .org__id {
     font-weight: 600;
     padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.org__sign {
+    padding: 10px;
+}
+
+.org__actions {
+    padding: 10px;
 }

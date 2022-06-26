@@ -15,6 +15,17 @@
                 {% for org in organizations %}
                     <div class="org">
                         <div class="org__id">#{{ org.id }} {{ org.short_name }}</div>
+                        <div class="org__sign">
+                            <span>Статус золотого знака:<br><strong>{{ org.gold_sign }}</strong></span>
+                            {% if org.gold_sign == 'CONFIRMED' %}
+                                <span>Дата получения:<br><strong>{{ org.gold_sign_date }}</strong></span>
+                            {% endif %}
+                        </div>
+                        <div class="org__actions">
+                            <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/edit.png' %}"></a>
+                            <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/pdf.png' %}"></a>
+                            <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/xml.png' %}"></a>
+                        </div>
                     </div>
                 {% empty %}
                 {% endfor %}

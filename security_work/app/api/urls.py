@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .views import PassportAPIView
-from .views import OrganisationViewSet
+from .views import PassportAPIView, OrganisationViewSet, OrganisationPDFAPI
 
 
 urlpatterns = [
     path('passport/edit/', PassportAPIView.as_view(), name='passport_edit'),
-    path('xml/<int:pk>', OrganisationViewSet.as_view({'get': 'retrieve'}))
+    path('xml/<int:pk>', OrganisationViewSet.as_view({'get': 'retrieve'})),
+    path('pdf/<int:pk>', OrganisationPDFAPI.as_view())
 ]

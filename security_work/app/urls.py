@@ -14,7 +14,7 @@ urlpatterns = [
     path('organizations/edit/<int:pk>/', edit_organization, name="org-edit"),
     path('organizations/create/', create_organization, name="org-create"),
     path('', homepage),
-    path('get_gold_sign/<int:org_id>/', ask_for_a_gold_sign, name="get-gold-sign")
+    path('get_gold_sign/<int:org_id>/', ask_for_a_gold_sign, name="get-gold-sign"),
     path('accept_gold_sign/<int:org_id>/', accept_gold_sign),
     path('reject_gold_sign/<int:org_id>/', reject_gold_sign)
 ]

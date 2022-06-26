@@ -45,7 +45,7 @@ class Organisation(models.Model):
     name_safety_specialist = models.CharField(max_length=250, verbose_name="ФИО и должность специалиста по охране труда или ответственного за охрану труда", null=True, blank=True)
     specialist_phone = models.CharField(max_length=50, verbose_name="Телефон специалиста по охране труда", null=True, blank=True)
     specialist_email = models.EmailField(verbose_name="E-mail специалиста по охране труда официальный", null=True, blank=True)
-    gold_sign = models.CharField(max_length=50, verbose_name="Золотой знак", choices=GOLD_SIGN_CHOICES, default="MISSING")
+    gold_sign = models.CharField(max_length=50, verbose_name="Золотой знак", choices=GOLD_SIGN_CHOICES, default="Отсутсвует")
     gold_sign_date = models.DateField(verbose_name="Дата получение золотого знака", null=True, blank=True)
 
     # Occupation safety valuation

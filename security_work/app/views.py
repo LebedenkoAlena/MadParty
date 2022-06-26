@@ -20,9 +20,10 @@ import datetime as dt
 def accept_gold_sign(request, org_id):
     if request.user.is_superuser:
         organisation = Organisation.objects.get(pk=org_id)
-        organisation.gold_sign = "CONFIRMED"
+        organisation.gold_sign = "Подтвержен"
         organisation.gold_sign_date = dt.date.today()
         organisation.save()
+        print(organisation.gold_sign)
     return redirect('/profile/')
 
 
@@ -30,7 +31,7 @@ def accept_gold_sign(request, org_id):
 def reject_gold_sign(request, org_id):
     if request.user.is_superuser:
         organisation = Organisation.objects.get(pk=org_id)
-        organisation.gold_sign = "MISSING"
+        organisation.gold_sign = "Отсутсвует"
         organisation.gold_sign_date = None
         organisation.save()
     return redirect('/profile/')
@@ -40,7 +41,7 @@ def reject_gold_sign(request, org_id):
 def ask_for_a_gold_sign(request, org_id):
     organisation = Organisation.objects.get(pk=org_id)
     if request.user.id == organisation.user_id:
-        organisation.gold_sign = "UNDER_CONSIDERATION"
+        organisation.gold_sign = "На рассмотрении"
         organisation.gold_sign_date = None
         organisation.save()
     return redirect('/profile/')

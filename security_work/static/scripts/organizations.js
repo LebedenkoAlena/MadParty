@@ -10,6 +10,8 @@ $(function () {
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
+let timeHack = false;
+
 const organizations = Vue.createApp({
     delimiters: ["[[", "]]"],
     data() {
@@ -30,7 +32,7 @@ const organizations = Vue.createApp({
                 })
                 this.currentForm += 1
                 setTimeout(3000, () => {
-                    
+                    timeHack = false;
                 })
             }
         },

@@ -140,6 +140,30 @@ h2 {
     }
 }
 
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button a {
+    color: white;
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center;
+}
+
+.org-list-grid {
+    display: grid;
+    grid-template-rows: auto;
+}
+
 .org {
-    border: 1px solid black
+    border: 1px solid black;
+    margin: 10px;
+}
+
+.org__id {
+    font-weight: 600;
+    padding: 10px;
 }

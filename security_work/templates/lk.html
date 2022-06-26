@@ -9,25 +9,22 @@
             <h2>Список организаций</h2>
         </div>
     </div>
-    {% for org in organizations %}
-        <div class="row org mt-3 mb-2">
-            <div class="col p-3">
-                <a href="{% url 'org-edit' pk=org.id %}">#{{ org.id }}</a>
-            </div>
-            <div class="col p-3">
-                <a href="{% url 'org-edit' pk=org.id %}">{{ org.short_name }}</a>
-            </div>
-            <div class="col p-3">
-                <img src="{% static 'img/pdf.png' %}">
-                <img src="{% static 'img/xml.png' %}">
+    <div class="row">
+        <div class="col">
+            <div class="org-list-grid">
+                {% for org in organizations %}
+                    <div class="org">
+                        <div class="org__id">#{{ org.id }} {{ org.short_name }}</div>
+                    </div>
+                {% empty %}
+                {% endfor %}
             </div>
         </div>
-    {% empty %}
-        <div class="row">
-            <div class="col ">
-                Вы ещё не добавили ни одну организацию.
-            </div>
-        </div>
-    {% endfor %}
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="button"><a href="{% url 'org-create' %}">Добавить организацию</a></div>
+        </div>
+    </div>
 {% endblock %}

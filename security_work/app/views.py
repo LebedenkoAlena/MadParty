@@ -31,7 +31,7 @@ def accept_gold_sign(request, org_id):
 def reject_gold_sign(request, org_id):
     if request.user.is_superuser:
         organisation = Organisation.objects.get(pk=org_id)
-        organisation.gold_sign = "Отсутсвует"
+        organisation.gold_sign = "Отсутствует"
         organisation.gold_sign_date = None
         organisation.save()
     return redirect('/profile/')
@@ -55,11 +55,7 @@ def user_lk(request):
         context = {}
         users = User.objects.all()
         for user in users:
-            context['users'] = context.get('users', []) + [[user,
-                                                            serializers.serialize(
-                                                                'python',
-                                                                Organisation.objects.filter(
-                                                                    user_id=user.id))]]
+            context['users'] = context.get('users', []) + [[user, Organisation.objects.filter(user_id=user.id)]]
         return render(request, 'lk_admin.html', context)
     else:
         user = request.user

@@ -4,23 +4,56 @@
 {% block title %}Личный кабинет{% endblock %}
 
 {% block content %}
-<main>
-    <div>
-        {% for user, organisations in users %}
-        <p>{{user.first_name}} {{user.last_name}} {{user.id}}</p>
-    <div class="organisation-list">
-        {% for organisation in organisations %}
-        <strong> {{ forloop.counter }}</strong>
-            <div class="organisation">
-                {% for field, value in organisation.fields.items %}
-                    {{ field }}: {{ value }}
-                    <br>
-                {% endfor %}
+    <div class="row">
+        <div class="col">
+            <h2>Список организаций</h2>
+        </div>
+        <div class="col col-md-1">
+            <a class="button" href="{% url 'logout' %}">Выйти</a>
+        </div>
+    </div>
+    {% for user, orgs in users %}
+        <div class="row">
+            <div class="col">
+                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
             </div>
-        <br>
-        {% endfor %}
-    </div>
-        {% endfor %}
-    </div>
-</main>
+        </div>
+        <div class="row">
+            <div class="col org-col">
+                <div class="org-list-grid">
+                    {% for org in orgs %}
+                        <div class="org">
+                            <div class="org__id">#{{ org.id }} {{ org.short_name }}</div>
+                            <div class="org__sign">
+                                <span>Статус золотого знака:<br><strong>{{ org.gold_sign }}</strong></span>
+                                {% if org.gold_sign == 'Подтвержен' %}
+                                    <span>Дата получения:<br><strong>{{ org.gold_sign_date }}</strong></span>
+                                {% endif %}
+                                <div class="row">
+                                    {% if org.gold_sign != 'Отсутствует' %}
+                                        {% if org.gold_sign == 'На рассмотрении' %}
+                                            <div class="col m-1"><a href="{% url 'accept-gold-sign' org_id=org.id %}"
+                                                                    class="button">Принять</a></div>
+                                        {% endif %}
+                                        {% if org.gold_sign == '' %}
+                                            <div class="col m-1"><a href="{% url 'accept-gold-sign' org_id=org.id %}"
+                                                                    class="button">Принять</a></div>
+                                        {% endif %}
+                                        <div class="col m-1"><a href="{% url 'reject-gold-sign' org_id=org.id %}"
+                                                                class="button">Отклонить</a></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="org__actions">
+                                <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/edit.png' %}"></a>
+                                <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/pdf.png' %}"></a>
+                                <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/xml.png' %}"></a>
+                            </div>
+                        </div>
+                    {% empty %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -8,6 +8,9 @@
         <div class="col">
             <h2>Список организаций</h2>
         </div>
+        <div class="col col-md-1">
+            <a class="button" href="{% url 'logout' %}">Выйти</a>
+        </div>
     </div>
     <div class="row">
         <div class="col org-col">
@@ -26,7 +29,8 @@
                             <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/pdf.png' %}"></a>
                             <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/xml.png' %}"></a>
                             {% if org.gold_sign == 'Отсутствует' %}
-                                <a href="{% url 'get-gold-sign' org_id=org.id %}"><img src="{% static 'img/coin.png' %}"></a>
+                                <a href="{% url 'get-gold-sign' org_id=org.id %}"><img
+                                        src="{% static 'img/coin.png' %}"></a>
                             {% endif %}
                         </div>
                     </div>

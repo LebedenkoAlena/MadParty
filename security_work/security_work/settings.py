@@ -11,7 +11,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -24,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_xml'
 ]
 
 MIDDLEWARE = [
@@ -58,7 +58,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'security_work.wsgi.application'
 
-
 # Database
 
 DATABASES = {
@@ -67,7 +66,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 
@@ -86,7 +84,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 
 LANGUAGE_CODE = 'ru'
@@ -97,12 +94,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Login settings
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-
 
 # Static files (CSS, JavaScript, Images)
 

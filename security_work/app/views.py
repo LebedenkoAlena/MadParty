@@ -3,6 +3,7 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views import View
+
 from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     ProfessionalRiskForm,
                     WorkingConditionsForm,
@@ -11,15 +12,16 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     CollectiveAgreementForm, OrganisationForm)
 from django.contrib.auth.decorators import login_required
 from .models import Organisation
+
 from fpdf import FPDF
 
 
-def PassportToPDF(Org):
+def passport_to_pdf(org):
     pdf = FPDF()
-    pdf.add_font('Sans', style='', fname='font/DejaVuSans.ttf', uni=True)
+    pdf.add_font('Sans', style='', fname='static/font/DejaVuSans.ttf', uni=True)
     pdf.set_font("Sans", size=12)
     pdf.add_page()
-    data = serializers.serialize("python", [Org])[0]["fields"]
+    data = serializers.serialize("python", [org])[0]["fields"]
     col_width = pdf.w / 1.1
     row_height = pdf.font_size * 1.5
     for key, value in data.items():
@@ -31,16 +33,19 @@ def PassportToPDF(Org):
             d = {"YES": "Да", "NO": "Нет", "PARTIALLY": "Частично"}
             value = d.get(value, '')
         pdf.multi_cell(col_width, row_height,
-                       txt=str(Org._meta.get_field(key).verbose_name), border=1)
+                       txt=str(org._meta.get_field(key).verbose_name), border=1)
         pdf.multi_cell(col_width, row_height,
                        txt=str(value), border=1)
         pdf.ln(row_height)
-    pdf.output(f'{Org.id}.pdf')
+    pdf.output(f'{org.id}.pdf')
 
 
 def user_lk(request):
     if not request.user.is_authenticated:
         return redirect('/')
+
+    if request.user.is_superuser:
+        return redirect('/lk_admin')
 
     user = request.user
     organisations = Organisation.objects.filter(user_id=user.id).all()
@@ -50,6 +55,8 @@ def user_lk(request):
 
 
 def admin_lk(request):
+    if not request.user.is_superuser:
+        return redirect('/lk/')
     context = {}
     users = User.objects.all()
     for user in users:
@@ -65,12 +72,12 @@ def homepage(request):
     return render(request, "homepage.html")
 
 
-# TODO возможность загрузить файлы для каждого поля
 def add_organisation(request):
     form = OrganisationForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
-            form.save()
+            org = form.save()
+            Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
 
     return render(request, "organizations/add_organization.html", {

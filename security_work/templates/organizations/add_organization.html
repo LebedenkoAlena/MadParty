@@ -6,6 +6,16 @@
         <div id="django-data-forms-count">{{ forms|length }}</div>
     </div>
 
+    <div class="row">
+        <div class="col mb-3 mt-2">
+            <div class="form-steps">
+                {% for i in forms %}
+                    <div class="form-step active">{{ forloop.counter }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
     <div class="row justify-content-sm-center">
         <div class="col-md-10">
             <div id="organizations">
@@ -36,12 +46,6 @@
                     </div>
                 </div>
                 </Transition>
-            </div>
-        </div>
-        <div class="col-md-1">
-            <div class="form-steps">
-                <div class="form-step">1</div>
-                <div class="form-step">2</div>
             </div>
         </div>
     </div>

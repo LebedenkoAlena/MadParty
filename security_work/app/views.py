@@ -13,6 +13,34 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
 from django.contrib.auth.decorators import login_required
 from .models import Organisation
 
+import datetime as dt
+
+
+@login_required
+def accept_gold_sign(request, org_id):
+    if request.user.is_superuser:
+        organisation = Organisation.objects.get(pk=org_id).first()
+        organisation.gold_sign = "CONFIRMED"
+        organisation.gold_sign_date = dt.date.today()
+        organisation.save()
+
+
+@login_required
+def reject_gold_sign(request, org_id):
+    if request.user.is_superuser:
+        organisation = Organisation.objects.get(pk=org_id).first()
+        organisation.gold_sign = "MISSING"
+        organisation.gold_sign_date = None
+        organisation.save()
+
+
+@login_required
+def ask_for_a_gold_sign(request, org_id):
+    organisation = Organisation.objects.get(pk=org_id).first()
+    if request.user.id == organisation.user_id:
+        organisation.gold_sign = "UNDER_CONSIDERATION"
+        organisation.gold_sign_date = None
+        organisation.save()
 
 
 def user_lk(request):

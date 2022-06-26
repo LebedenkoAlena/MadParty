@@ -15,6 +15,12 @@
                 {% for org in organizations %}
                     <div class="org">
                         <div class="org__id">#{{ org.id }} {{ org.short_name }}</div>
+                        <div class="org__sign">
+                            <span>Статус золотого знака: {{ org.gold_sign }}</span>
+                            {% if org.gold_sign == 'CONFIRMED' %}
+                                <span>Дата получения: {{ org.gold_sign_date }}</span>
+                            {% endif %}
+                        </div>
                     </div>
                 {% empty %}
                 {% endfor %}

@@ -9,6 +9,18 @@ const organizations = Vue.createApp({
             formsCount
         }
     },
+    mounted() {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.post("http://127.0.0.1:8000/login/", {
+            data: {
+                username: "admin",
+                password: "qwerty123"
+            }
+        }).then(response => {
+            console.log(response)
+        })
+    },
     methods: {
         nextForm() {
             console.log(formsCount)

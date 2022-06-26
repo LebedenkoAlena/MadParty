@@ -38,9 +38,16 @@
                 </Transition>
             </div>
         </div>
+        <div class="col-md-1">
+            <div class="form-steps">
+                <div class="form-step">1</div>
+                <div class="form-step">2</div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script src="{% static 'vendor/axios.js' %}"></script>
     <script src="{% static 'scripts/organizations.js' %}"></script>
 {% endblock %}

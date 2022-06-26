@@ -14,6 +14,7 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     CollectiveAgreementForm, OrganisationForm)
 from .models import Organisation
 import datetime as dt
+from django.forms.models import model_to_dict
 
 
 @login_required
@@ -77,6 +78,7 @@ def add_organisation(request):
             Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
     org = Organisation.objects.first()
+    data = dict(model_to_dict(org).items())
     return render(request, "organizations/add_organization.html", {
         'forms': [GeneralOrgForm(instance=org),
                   OccupationSafetyForm,

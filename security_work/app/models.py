@@ -60,6 +60,15 @@ class Organisation(models.Model):
     class4_workers_number = models.IntegerField(verbose_name="Всего человек, работающих на рабочих местах с условием труда 4 класса", null=True, blank=True)
     workers_on_danger_positions_percent = models.CharField(max_length=50, verbose_name="% рабочих на опасных местах", null=True, blank=True)
 
+    """@property
+    def valuated_workplace_percent(self):
+        return self.workplace_number_with_valuation / self.workplace_number * 100
+
+    @property
+    def workers_on_danger_positions_percent(self):
+        return self.class4_workers_number / self.workplace_number  * 100"""
+
+
     # Professional risks control
     is_risk_valuation_done = models.CharField(max_length=50, choices=ANSWER_CHOICES, verbose_name="Проведена оценка профессиональных рисков в области охраны труда", null=True, blank=True)
     risk_valuation_date = models.DateField(verbose_name="Дата проведения последней оценки профессиональных рисков", null=True, blank=True)
@@ -71,6 +80,18 @@ class Organisation(models.Model):
     average_percent_provided_disinfectants = models.CharField(max_length=50, verbose_name="Средний % обеспечения работников смывающими средствами", null=True, blank=True)
     workers_number_with_medical_brief = models.IntegerField(verbose_name="Количество работников, подлежащих обязательным предварительным и периодическим медицинским осмотрам", null=True, blank=True)
     percent_of_workers_with_medical_brief = models.CharField(max_length=50, verbose_name="% работников, прошедших обязательные предварительные и периодические медицинские осмотры", null=True, blank=True)
+
+    """@property
+    def average_percent_provided_coveralls(self):
+        return self.workers_number_with_free_coveralls / self.workplace_number  * 100
+
+    @property
+    def average_percent_provided_disinfectants(self):
+        return self.workers_number_with_free_disinfectants / self.workplace_number  * 100
+
+    @property
+    def percent_of_workers_with_medical_brief(self):
+        return self.workers_number_with_medical_brief / self.workplace_number  * 100"""
 
     # Industrial injuries
     number_of_died_workers = models.IntegerField(verbose_name="Количество погибших на производстве, чел", null=True, blank=True)
@@ -106,7 +127,39 @@ class Organisation(models.Model):
     percent_of_educated = models.CharField(max_length=50, verbose_name="% фактически прошедших такое обучение", null=True, blank=True)
     timely_passage = models.BooleanField(verbose_name="Своевременное проведение инструктажей по охране труда", null=True, blank=True)
 
+    """@property
+    def percent_of_educated(self):
+        return self.count_of_workers / self.workplace_number  * 100"""
+
     # Collective agreement
     trade_union_organisation = models.BooleanField(verbose_name="Наличие профсоюзной организации", null=True, blank=True)
     collective_agreement = models.TextField(verbose_name="Наличие коллективного договора", null=True, blank=True)
     change_agreement = models.TextField(verbose_name="Изменения в колдоговор", null=True, blank=True)
+
+    def calculate_percents(self):
+        try:
+            self.percent_of_educated = round(self.count_of_workers / self.workplace_number  * 100)
+        except:
+            pass
+        try:
+            self.percent_of_workers_with_medical_brief = round(self.workers_number_with_medical_brief / self.workplace_number  * 100)
+        except:
+            pass
+        try:
+            self.average_percent_provided_disinfectants = round(self.workers_number_with_free_disinfectants / self.workplace_number  * 100)
+        except:
+            pass
+        try:
+            self.average_percent_provided_coveralls = round(self.workers_number_with_free_coveralls / self.workplace_number  * 100)
+        except:
+            pass
+        try:
+            self.workers_on_danger_positions_percent = round(self.class4_workers_number / self.workplace_number  * 100)
+        except:
+            pass
+        try:
+            self.valuated_workplace_percent = round(self.workplace_number_with_valuation / self.workplace_number * 100)
+            print(1)
+        except:
+            pass
+        self.save()

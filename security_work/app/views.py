@@ -46,7 +46,6 @@ def user_lk(request):
 
     user = request.user
     organisations = Organisation.objects.filter(user_id=user.id).all()
-    passport_to_pdf(organisations.first())
     return render(request, "lk.html", {
         "organisations": serializers.serialize("python", organisations)
     })
@@ -72,7 +71,9 @@ def add_organisation(request):
     form = OrganisationForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
-            form.save()
+            org = form.save()
+            Organisation.objects.get(id=org.id).calculate_percents()
+            #_meta.models.id
             return redirect('/lk/')
 
     return render(request, "add_organisation.html", {

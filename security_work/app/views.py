@@ -18,7 +18,8 @@ from fpdf import FPDF
 
 def passport_to_pdf(org):
     pdf = FPDF()
-    pdf.add_font('Sans', style='', fname='static/font/DejaVuSans.ttf', uni=True)
+    pdf.add_font('Sans', style='', fname='static/font/DejaVuSans.ttf',
+                 uni=True)
     pdf.set_font("Sans", size=12)
     pdf.add_page()
     data = serializers.serialize("python", [org])[0]["fields"]
@@ -33,7 +34,8 @@ def passport_to_pdf(org):
             d = {"YES": "Да", "NO": "Нет", "PARTIALLY": "Частично"}
             value = d.get(value, '')
         pdf.multi_cell(col_width, row_height,
-                       txt=str(org._meta.get_field(key).verbose_name), border=1)
+                       txt=str(org._meta.get_field(key).verbose_name),
+                       border=1)
         pdf.multi_cell(col_width, row_height,
                        txt=str(value), border=1)
         pdf.ln(row_height)
@@ -102,8 +104,101 @@ class PassportOrgView(View):
                               CommonDataForm,
                               LaborProtectionTrainingForm,
                               CollectiveAgreementForm]}
-        return render(request, 'organizations/add_organisation.html', context=data)
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
 
-    # def post(self, request):
-    #     data = {"org_form": OrganisationForm}
-    #     return render(request, '', context=data)
+
+@login_required
+class GeneralOrgView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': GeneralOrgForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class OccupationSafetyView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': OccupationSafetyForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class ProfessionalRiskView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': ProfessionalRiskForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class WorkingConditionsView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': WorkingConditionsForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class IndustrialInjuriesView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': IndustrialInjuriesForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class CommonDataView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': CommonDataForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class LaborProtectionTrainingView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': LaborProtectionTrainingForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)
+
+
+@login_required
+class CollectiveAgreementView(View):
+    login_url = reverse_lazy('login')
+    redirect_field_name = 'login'
+    model = Organisation
+
+    def post(self, request, id):
+        data = {'form': CollectiveAgreementForm}
+        return render(request, 'organizations/add_organisation.html',
+                      context=data)

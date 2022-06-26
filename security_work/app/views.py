@@ -15,17 +15,17 @@ from fpdf import FPDF
 
 
 def PassportToPDF(Org):
-    #TODO Сделать поля на русском и выбрать место/способо сохранения файла
     pdf = FPDF()
-    pdf.set_font("Arial", size=12)
+    pdf.add_font('Sans', style='', fname='font/DejaVuSans.ttf', uni=True)
+    pdf.set_font("Sans", size=12)
     pdf.add_page()
     data = serializers.serialize("python", [Org])[0]["fields"]
-    col_width = pdf.w / 2.5
-    row_height = pdf.font_size * 3
+    col_width = pdf.w / 1.1
+    row_height = pdf.font_size * 1.5
     for key, value in data.items():
-        pdf.cell(col_width, row_height,
-                 txt=str(key), border=1)
-        pdf.cell(col_width, row_height,
+        pdf.multi_cell(col_width, row_height,
+                 txt=str(Org._meta.get_field(key).verbose_name), border=1)
+        pdf.multi_cell(col_width, row_height,
                  txt=str(value), border=1)
         pdf.ln(row_height)
     pdf.output('simple_table.pdf')

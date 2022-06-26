@@ -23,6 +23,7 @@ def accept_gold_sign(request, org_id):
         organisation.gold_sign = "CONFIRMED"
         organisation.gold_sign_date = dt.date.today()
         organisation.save()
+    return redirect('/profile/')
 
 
 @login_required
@@ -32,6 +33,7 @@ def reject_gold_sign(request, org_id):
         organisation.gold_sign = "MISSING"
         organisation.gold_sign_date = None
         organisation.save()
+    return redirect('/profile/')
 
 
 @login_required
@@ -41,6 +43,7 @@ def ask_for_a_gold_sign(request, org_id):
         organisation.gold_sign = "UNDER_CONSIDERATION"
         organisation.gold_sign_date = None
         organisation.save()
+    return redirect('/profile/')
 
 
 def user_lk(request):

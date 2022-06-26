@@ -2,50 +2,64 @@
 {% load static %}
 
 {% block content %}
-    <div class="django-data" style="display: none">
-        <div id="django-data-forms-count">{{ forms|length }}</div>
-    </div>
+    <div id="organizations">
+        <div class="django-data" style="display: none">
+            <div id="django-data-forms-count">{{ forms|length }}</div>
+        </div>
 
-    <div class="row">
-        <div class="col mb-3 mt-2">
-            <div class="form-steps">
-                {% for i in forms %}
-                    <div class="form-step active">{{ forloop.counter }}</div>
-                {% endfor %}
+        <div class="row justify-content-sm-center align-items-center">
+            <div class="col col-md-8 mb-3 mt-2">
+                <h1>Новая организация</h1>
+            </div>
+            <div class="col mb-3 mt-2">
+                <button class="button-back" @click="backForm">← Назад</button>
+            </div>
+            <div class="col mb-3 mt-2">
+                <button @click="nextForm">Далее</button>
             </div>
         </div>
-    </div>
 
-    <div class="row justify-content-sm-center">
-        <div class="col-md-10">
-            <div id="organizations">
-                {% for form in forms %}
-                    <Transition>
-                        <form v-show="currentForm == {{ forloop.counter0 }}"
-                              :id="currentForm == {{ forloop.counter0 }} ? 'activeForm' : ''"
-                              form-index="{{ forloop.counter0 }}">
-                            <h1 class="text-center text-vertical-center">{{ form.title }}</h1>
-                            {% for field in form %}
-                                <div class="row">
-                                    <div class="col mt-3 mb-2">
-                                        <label>{{ field.label }}</label>
-                                        {{ field }}
-                                        {{ field.errors }}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </form>
-                    </Transition>
-                {% endfor %}
-                <div class="row">
-                    <div class="col mt-3 mb-2">
-                        <button @click="nextForm()">
-                            <span v-if="currentForm == formsCount - 1">Сохранить</span>
-                            <span v-else>Сохранить и продолжить</span>
-                        </button>
+        <div class="row justify-content-sm-center">
+            <div class="col col-md-8 mb-3 mt-2">
+                <div class="form-steps row">
+                    <div class="col mb-1 mt-1" v-for="i in formsCount">
+                        <div class="form-step" :class="{'active': currentForm >= i - 1}"></div>
                     </div>
                 </div>
-                </Transition>
+            </div>
+        </div>
+
+        <div class="row justify-content-sm-center mt-5">
+            <div class="col-md-10">
+                <div>
+                    {% for form in forms %}
+                        <Transition>
+                            <form v-show="currentForm == {{ forloop.counter0 }}"
+                                  :id="currentForm == {{ forloop.counter0 }} ? 'activeForm' : ''"
+                                  form-index="{{ forloop.counter0 }}">
+                                <h2 class="text-center text-vertical-center">{{ form.title }}</h2>
+                                {% for field in form %}
+                                    <div class="row">
+                                        <div class="col mt-3 mb-2">
+                                            <label>{{ field.label }}</label>
+                                            {{ field }}
+                                            {{ field.errors }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </form>
+                        </Transition>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col mt-3 mb-2">
+                            <button @click="nextForm()">
+                                <span v-if="currentForm == formsCount - 1">Сохранить</span>
+                                <span v-else>Сохранить и продолжить</span>
+                            </button>
+                        </div>
+                    </div>
+                    </Transition>
+                </div>
             </div>
         </div>
     </div>

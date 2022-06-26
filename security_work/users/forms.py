@@ -14,6 +14,9 @@ class SubAttrsFormMixin(forms.Form):
 
 
 class UserCreateForm(SubAttrsFormMixin, UserCreationForm):
+
+    user_accept = forms.BooleanField(required=True, label="С порядком проведения мониторинга ознакомлен.")
+
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name", "email"]

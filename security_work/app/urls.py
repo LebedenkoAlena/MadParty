@@ -5,15 +5,15 @@ from .views import (GeneralOrgView, OccupationSafetyView, ProfessionalRiskView,
                     CommonDataView, LaborProtectionTrainingView,
                     CollectiveAgreementView)
 
-VIEW_LIST = [GeneralOrgView, OccupationSafetyView, ProfessionalRiskView,
-             WorkingConditionsView, IndustrialInjuriesView,
-             CommonDataView, LaborProtectionTrainingView,
-             CollectiveAgreementView]
+VIEW_LIST = ['GeneralOrgView', 'OccupationSafetyView', 'ProfessionalRiskView',
+             'WorkingConditionsView', 'IndustrialInjuriesView',
+             'CommonDataView', 'LaborProtectionTrainingView',
+             'CollectiveAgreementView']
 urlpatterns = [
     path('lk/', user_lk, name='lk'),
     path('organizations/add/', add_organisation),
     path('', homepage),
 ]
-# urlpatterns += [
-#     eval(f"path('organization/edit/{i}', {VIEW_LIST[i]}.as_view())") for i
-#     in range(8)]
+urlpatterns += [eval(
+    f"path('organization/edit/<int:pk>/{i}', {VIEW_LIST[i]}.as_view())")
+    for i in range(8)]

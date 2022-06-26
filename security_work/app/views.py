@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.core import serializers
 from django.contrib.auth.models import User
@@ -10,7 +11,7 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     IndustrialInjuriesForm, CommonDataForm,
                     LaborProtectionTrainingForm,
                     CollectiveAgreementForm, OrganisationForm)
-from django.contrib.auth.decorators import login_required
+
 from .models import Organisation
 
 from fpdf import FPDF
@@ -89,8 +90,8 @@ def add_organisation(request):
 
 
 # TODO Сделать редактирование
-@login_required
-class PassportOrgView(View):
+
+class PassportOrgView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -108,8 +109,7 @@ class PassportOrgView(View):
                       context=data)
 
 
-@login_required
-class GeneralOrgView(View):
+class GeneralOrgView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -120,8 +120,7 @@ class GeneralOrgView(View):
                       context=data)
 
 
-@login_required
-class OccupationSafetyView(View):
+class OccupationSafetyView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -132,8 +131,7 @@ class OccupationSafetyView(View):
                       context=data)
 
 
-@login_required
-class ProfessionalRiskView(View):
+class ProfessionalRiskView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -144,8 +142,7 @@ class ProfessionalRiskView(View):
                       context=data)
 
 
-@login_required
-class WorkingConditionsView(View):
+class WorkingConditionsView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -156,8 +153,7 @@ class WorkingConditionsView(View):
                       context=data)
 
 
-@login_required
-class IndustrialInjuriesView(View):
+class IndustrialInjuriesView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -168,8 +164,7 @@ class IndustrialInjuriesView(View):
                       context=data)
 
 
-@login_required
-class CommonDataView(View):
+class CommonDataView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -180,8 +175,7 @@ class CommonDataView(View):
                       context=data)
 
 
-@login_required
-class LaborProtectionTrainingView(View):
+class LaborProtectionTrainingView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation
@@ -192,8 +186,7 @@ class LaborProtectionTrainingView(View):
                       context=data)
 
 
-@login_required
-class CollectiveAgreementView(View):
+class CollectiveAgreementView(LoginRequiredMixin, View):
     login_url = reverse_lazy('login')
     redirect_field_name = 'login'
     model = Organisation

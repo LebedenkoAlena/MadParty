@@ -29,6 +29,9 @@ const organizations = Vue.createApp({
                     console.log(response)
                 })
                 this.currentForm += 1
+                setTimeout(3000, () => {
+                    
+                })
             }
         },
         backForm() {

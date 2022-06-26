@@ -14,7 +14,7 @@ class OrganisationForm(forms.ModelForm):
     class Meta:
         model = Organisation
         fields = '__all__'
-        exclude = ['user_id',
+        exclude = [
                    'gold_sign',
                    'gold_sign_date',
                    'valuated_workplace_percent',

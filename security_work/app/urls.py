@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import user_lk, homepage, add_organisation
+from .views import user_lk, homepage, edit_organization, create_organization
 from .views import (GeneralOrgView, OccupationSafetyView, ProfessionalRiskView,
                     WorkingConditionsView, IndustrialInjuriesView,
                     CommonDataView, LaborProtectionTrainingView,
@@ -11,7 +11,8 @@ VIEW_LIST = ['GeneralOrgView', 'OccupationSafetyView', 'ProfessionalRiskView',
              'CollectiveAgreementView']
 urlpatterns = [
     path('profile/', user_lk, name='profile'),
-    path('organizations/add/', add_organisation),
+    path('organizations/edit/<int:pk>/', edit_organization, name="org-edit"),
+    path('organizations/create/', create_organization, name="org-create"),
     path('', homepage),
 ]
 urlpatterns += [eval(

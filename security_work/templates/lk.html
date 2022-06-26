@@ -4,32 +4,22 @@
 {% block title %}Личный кабинет{% endblock %}
 
 {% block content %}
-    <main>
-        <div class="organisation-list">
-            {% for organisation in organisations %}
-                <strong>Organisation {{ forloop.counter }}</strong>
-                <div class="organisation">
-                    {% for field, value in organisation.fields.items %}
-                        {{ field }}: {{ value }}
-                        <br>
-                    {% endfor %}
-                </div>
-                <br>
-            {% endfor %}
-        </div>
-        <a href="/addOrganisation/">Добавить организацию</a>
-    </main>
-
     <div class="row">
         <div class="col">
             <h2>Список организаций</h2>
         </div>
     </div>
-
     {% for org in organizations %}
-        <div class="row">
-            <div class="col">
-                <h2>Список организаций</h2>
+        <div class="row org mt-3 mb-2">
+            <div class="col p-3">
+                <a href="{% url 'org-edit' pk=org.id %}">#{{ org.id }}</a>
+            </div>
+            <div class="col p-3">
+                <a href="{% url 'org-edit' pk=org.id %}">{{ org.short_name }}</a>
+            </div>
+            <div class="col p-3">
+                <img src="{% static 'img/pdf.png' %}">
+                <img src="{% static 'img/xml.png' %}">
             </div>
         </div>
     {% empty %}

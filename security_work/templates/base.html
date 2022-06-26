@@ -19,12 +19,12 @@
 <div class="container-md">
     <header class="header">
         <div class="header__row">
-            <a href="" class="header__logo"><img src="{% static 'img/logo.png' %}"></a>
+            <a href="{% url 'profile' %}" class="header__logo"><img src="{% static 'img/logo.png' %}"></a>
             <img src="{% static 'img/burger-menu-icon.png' %}" id="header-burger" class="header_burger">
         </div>
         <nav>
             {% if request.user.is_active %}
-                <a href="">{{ request.user }}</a>
+                <a href="{% url 'profile' %}">{{ request.user }}</a>
             {% else %}
                 <a href="{% url 'login' %}">Вход</a>
             {% endif %}

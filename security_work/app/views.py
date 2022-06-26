@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core import serializers
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -60,9 +60,9 @@ def user_lk(request):
         return render(request, 'lk_admin.html', context)
     else:
         user = request.user
-        organisations = Organisation.objects.filter(user_id=user.id).all()
+        organizations = Organisation.objects.filter(user_id=user.id).all()
         return render(request, "lk.html", {
-            "organisations": serializers.serialize("python", organisations)
+            "organizations": organizations
         })
 
 
@@ -70,15 +70,23 @@ def homepage(request):
     return render(request, "homepage.html")
 
 
-def add_organisation(request):
+def create_organization(request):
+    if request.user.is_active:
+        org = Organisation.objects.create()
+        org.user_id = request.user
+        org.save()
+        return redirect("profile")
+
+
+def edit_organization(request, pk):
     form = OrganisationForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             org = form.save()
             Organisation.objects.get(id=org.id).calculate_percents()
             return redirect('/lk/')
-    org = Organisation.objects.first()
-    return render(request, "organizations/add_organization.html", {
+    org = get_object_or_404(Organisation, pk=pk)
+    return render(request, "organizations/edit_organization.html", {
         'forms': [GeneralOrgForm(instance=org),
                   OccupationSafetyForm(instance=org),
                   ProfessionalRiskForm(instance=org),

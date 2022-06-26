@@ -2,6 +2,11 @@ let formsCount = parseInt(document.querySelector("#django-data-forms-count").tex
 let organizationID = parseInt(document.querySelector("#django-data-organization").textContent)
 document.querySelector(".django-data").remove()
 
+$(function () {
+    $("#id_leader_phone").mask("8(999) 999-9999")
+    $("#id_specialist_phone").mask("8(999) 999-9999")
+})
+
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 

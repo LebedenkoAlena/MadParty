@@ -19,19 +19,19 @@ class Organisation(models.Model):
     ]
 
     # General
-    opf = models.TextField(verbose_name="Наименование ОПФ юрлица", null=True, blank=True)
-    name = models.TextField(verbose_name="Полное наименование организации (для ИП - ФИО)", null=True, blank=True)
-    short_name = models.TextField(verbose_name="Краткое наименование организации", null=True, blank=True)
-    address = models.TextField(verbose_name="Юридический адрес", null=True, blank=True)
-    fact_address = models.TextField(verbose_name="Фактический адрес", null=True, blank=True)
-    leader_name = models.TextField(verbose_name="ФИО руководителя и должность", null=True, blank=True)
+    opf = models.CharField(verbose_name="Наименование ОПФ юрлица", null=True, blank=True)
+    name = models.CharField(verbose_name="Полное наименование организации (для ИП - ФИО)", null=True, blank=True)
+    short_name = models.CharField(verbose_name="Краткое наименование организации", null=True, blank=True)
+    address = models.CharField(verbose_name="Юридический адрес", null=True, blank=True)
+    fact_address = models.CharField(verbose_name="Фактический адрес", null=True, blank=True)
+    leader_name = models.CharField(verbose_name="ФИО руководителя и должность", null=True, blank=True)
     inn = models.CharField(max_length=100, verbose_name="ИНН", null=True, blank=True)
     oktmo = models.CharField(max_length=100, verbose_name="ОКТМО", null=True, blank=True)
-    activity_type = models.TextField(verbose_name="Основной вид деятельности по ОКВЭД", null=True, blank=True)
+    activity_type = models.CharField(verbose_name="Основной вид деятельности по ОКВЭД", null=True, blank=True)
     workers_number = models.IntegerField(verbose_name="Среднесписочная численность работников на дату проведения мониторинга — Ч (с указанием мужчин - М, женщин - Ж)", null=True, blank=True)
     leader_phone = models.CharField(max_length=50, verbose_name="Телефон руководителя", null=True, blank=True)
     official_email = models.EmailField(verbose_name="E-mail руководителя официальный", null=True, blank=True)
-    name_safety_specialist = models.TextField(verbose_name="ФИО и должность специалиста по охране труда или ответственного за охрану труда", null=True, blank=True)
+    name_safety_specialist = models.CharField(verbose_name="ФИО и должность специалиста по охране труда или ответственного за охрану труда", null=True, blank=True)
     specialist_phone = models.CharField(max_length=50, verbose_name="Телефон специалиста по охране труда", null=True, blank=True)
     specialist_email = models.EmailField(verbose_name="E-mail специалиста по охране труда официальный", null=True, blank=True)
     gold_sign = models.BooleanField(verbose_name="Золотой знак", null=True, blank=True)
@@ -133,8 +133,8 @@ class Organisation(models.Model):
 
     # Collective agreement
     trade_union_organisation = models.BooleanField(verbose_name="Наличие профсоюзной организации", null=True, blank=True)
-    collective_agreement = models.TextField(verbose_name="Наличие коллективного договора", null=True, blank=True)
-    change_agreement = models.TextField(verbose_name="Изменения в колдоговор", null=True, blank=True)
+    collective_agreement = models.CharField(verbose_name="Наличие коллективного договора", null=True, blank=True)
+    change_agreement = models.CharField(verbose_name="Изменения в колдоговор", null=True, blank=True)
 
     def calculate_percents(self):
         try:

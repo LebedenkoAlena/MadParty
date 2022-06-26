@@ -14,13 +14,12 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
                     CollectiveAgreementForm, OrganisationForm)
 from .models import Organisation
 import datetime as dt
-from django.forms.models import model_to_dict
 
 
 @login_required
 def accept_gold_sign(request, org_id):
     if request.user.is_superuser:
-        organisation = Organisation.objects.get(pk=org_id).first()
+        organisation = Organisation.objects.get(pk=org_id)
         organisation.gold_sign = "CONFIRMED"
         organisation.gold_sign_date = dt.date.today()
         organisation.save()
@@ -29,7 +28,7 @@ def accept_gold_sign(request, org_id):
 @login_required
 def reject_gold_sign(request, org_id):
     if request.user.is_superuser:
-        organisation = Organisation.objects.get(pk=org_id).first()
+        organisation = Organisation.objects.get(pk=org_id)
         organisation.gold_sign = "MISSING"
         organisation.gold_sign_date = None
         organisation.save()
@@ -37,7 +36,7 @@ def reject_gold_sign(request, org_id):
 
 @login_required
 def ask_for_a_gold_sign(request, org_id):
-    organisation = Organisation.objects.get(pk=org_id).first()
+    organisation = Organisation.objects.get(pk=org_id)
     if request.user.id == organisation.user_id:
         organisation.gold_sign = "UNDER_CONSIDERATION"
         organisation.gold_sign_date = None
@@ -119,12 +118,9 @@ class OccupationSafetyView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = OccupationSafetyForm(request.POST or None)
+        form = OccupationSafetyForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 
@@ -135,12 +131,9 @@ class ProfessionalRiskView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = ProfessionalRiskForm(request.POST or None)
+        form = ProfessionalRiskForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 
@@ -151,12 +144,9 @@ class WorkingConditionsView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = WorkingConditionsForm(request.POST or None)
+        form = WorkingConditionsForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 
@@ -167,12 +157,9 @@ class IndustrialInjuriesView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = IndustrialInjuriesForm(request.POST or None)
+        form = IndustrialInjuriesForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 
@@ -183,12 +170,9 @@ class CommonDataView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = CommonDataForm(request.POST or None)
+        form = CommonDataForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 
@@ -199,12 +183,9 @@ class LaborProtectionTrainingView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = LaborProtectionTrainingForm(request.POST or None)
+        form = LaborProtectionTrainingForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")
 
@@ -215,11 +196,8 @@ class CollectiveAgreementView(LoginRequiredMixin, View):
     model = Organisation
 
     def post(self, request, pk):
-        form = CollectiveAgreementForm(request.POST or None)
+        form = CollectiveAgreementForm(request.POST or None, instance=Organisation.objects.get(pk=pk))
         if form.is_valid():
-            org = Organisation.objects.get(id=pk)
-            for k, v in form.cleaned_data.items():
-                eval(f"org.{k} = {v}")
-            org.save()
+            form.save()
             return HttpResponse("OK")
         return HttpResponse("BAD")

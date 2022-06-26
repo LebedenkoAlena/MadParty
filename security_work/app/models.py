@@ -6,10 +6,15 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+def instances_count():
+    return f"Новая организация ({Organisation.objects.count()})"
+
+
 class Organisation(models.Model):
     """
     Class, that contains passport of Organisation
     """
+
     user_id = models.ForeignKey(default=None, verbose_name='Пользователь', to=User, related_name='user', on_delete=models.SET_NULL, null=True)
 
     ANSWER_CHOICES = [
@@ -27,7 +32,7 @@ class Organisation(models.Model):
     # General
     opf = models.CharField(max_length=150, verbose_name="Наименование ОПФ юрлица", null=True, blank=True)
     name = models.CharField(max_length=250, verbose_name="Полное наименование организации (для ИП - ФИО)", null=True, blank=True)
-    short_name = models.CharField(max_length=250, verbose_name="Краткое наименование организации", null=True, blank=True)
+    short_name = models.CharField(max_length=250, verbose_name="Краткое наименование организации", default=instances_count)
     address = models.CharField(max_length=500, verbose_name="Юридический адрес", null=True, blank=True)
     fact_address = models.CharField(max_length=500, verbose_name="Фактический адрес", null=True, blank=True)
     leader_name = models.CharField(max_length=250, verbose_name="ФИО руководителя и должность", null=True, blank=True)
@@ -40,7 +45,7 @@ class Organisation(models.Model):
     name_safety_specialist = models.CharField(max_length=250, verbose_name="ФИО и должность специалиста по охране труда или ответственного за охрану труда", null=True, blank=True)
     specialist_phone = models.CharField(max_length=50, verbose_name="Телефон специалиста по охране труда", null=True, blank=True)
     specialist_email = models.EmailField(verbose_name="E-mail специалиста по охране труда официальный", null=True, blank=True)
-    gold_sign = models.CharField(max_length=50, verbose_name="Золотой знак", choices=GOLD_SIGN_CHOICES, null=True, blank=True)
+    gold_sign = models.CharField(max_length=50, verbose_name="Золотой знак", choices=GOLD_SIGN_CHOICES, default="MISSING")
     gold_sign_date = models.DateField(verbose_name="Дата получение золотого знака", null=True, blank=True)
 
     # Occupation safety valuation

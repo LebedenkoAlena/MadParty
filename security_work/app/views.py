@@ -78,7 +78,7 @@ def add_organisation(request):
             return redirect('/lk/')
     org = Organisation.objects.first()
     return render(request, "organizations/add_organization.html", {
-        'forms': [GeneralOrgForm,
+        'forms': [GeneralOrgForm(instance=org),
                   OccupationSafetyForm,
                   ProfessionalRiskForm,
                   WorkingConditionsForm,

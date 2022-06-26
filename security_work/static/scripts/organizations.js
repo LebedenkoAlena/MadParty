@@ -22,12 +22,13 @@ const organizations = Vue.createApp({
     methods: {
         nextForm() {
             if (this.currentForm < this.formsCount - 1) {
-                this.currentForm += 1
-
                 let data = new FormData(document.querySelector("#activeForm"))
-                axios.post(`http://127.0.0.1:8000/organization/edit/${this.organizationID}/${this.currentForm}`).then(response => {
+
+                let url = `http://127.0.0.1:8000/organization/edit/${this.organizationID}/${this.currentForm}`
+                axios.post(url).then(response => {
                     console.log(response)
                 })
+                this.currentForm += 1
             }
         },
         backForm() {

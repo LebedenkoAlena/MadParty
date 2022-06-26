@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import routers, serializers as rest_serializers, viewsets
+from rest_framework import serializers as rest_serializers, viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework_xml.parsers import XMLParser
 from rest_framework_xml.renderers import XMLRenderer

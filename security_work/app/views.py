@@ -85,7 +85,8 @@ def add_organisation(request):
                   IndustrialInjuriesForm,
                   CommonDataForm,
                   LaborProtectionTrainingForm,
-                  CollectiveAgreementForm]
+                  CollectiveAgreementForm],
+        'organization': Organisation.objects.first()
     })
 
 

@@ -45,27 +45,21 @@ def user_lk(request):
         return redirect('/')
 
     if request.user.is_superuser:
-        return redirect('/lk_admin')
-
-    user = request.user
-    organisations = Organisation.objects.filter(user_id=user.id).all()
-    return render(request, "lk.html", {
-        "organisations": serializers.serialize("python", organisations)
-    })
-
-
-def admin_lk(request):
-    if not request.user.is_superuser:
-        return redirect('/lk/')
-    context = {}
-    users = User.objects.all()
-    for user in users:
-        context['users'] = context.get('users', []) + [[user,
-                                                        serializers.serialize(
-                                                            'python',
-                                                            Organisation.objects.filter(
-                                                                user_id=user.id))]]
-    return render(request, 'lk_admin.html', context)
+        context = {}
+        users = User.objects.all()
+        for user in users:
+            context['users'] = context.get('users', []) + [[user,
+                                                            serializers.serialize(
+                                                                'python',
+                                                                Organisation.objects.filter(
+                                                                    user_id=user.id))]]
+        return render(request, 'lk_admin.html', context)
+    else:
+        user = request.user
+        organisations = Organisation.objects.filter(user_id=user.id).all()
+        return render(request, "lk.html", {
+            "organisations": serializers.serialize("python", organisations)
+        })
 
 
 def homepage(request):

@@ -13,9 +13,15 @@ class Organisation(models.Model):
     user_id = models.ForeignKey(default=None, verbose_name='Пользователь', to=User, related_name='user', on_delete=models.SET_NULL, null=True)
 
     ANSWER_CHOICES = [
-        ("YES", "Да"),
-        ("NO", "Нет"),
-        ("PARTIALLY", "Частично"),
+        ("Yes", "Да"),
+        ("No", "Нет"),
+        ("Partially", "Частично"),
+    ]
+
+    GOLD_SIGN_CHOICES = [
+        ("Confirmed", "Подтвержен"),
+        ("Missing", "Отсутсвует"),
+        ("Under consideration", "На рассмотрении")
     ]
 
     # General
@@ -34,7 +40,7 @@ class Organisation(models.Model):
     name_safety_specialist = models.CharField(max_length=250, verbose_name="ФИО и должность специалиста по охране труда или ответственного за охрану труда", null=True, blank=True)
     specialist_phone = models.CharField(max_length=50, verbose_name="Телефон специалиста по охране труда", null=True, blank=True)
     specialist_email = models.EmailField(verbose_name="E-mail специалиста по охране труда официальный", null=True, blank=True)
-    gold_sign = models.BooleanField(verbose_name="Золотой знак", null=True, blank=True)
+    gold_sign = models.CharField(max_length=50, verbose_name="Золотой знак", choices=GOLD_SIGN_CHOICES, null=True, blank=True)
     gold_sign_date = models.DateField(verbose_name="Дата получение золотого знака", null=True, blank=True)
 
     # Occupation safety valuation

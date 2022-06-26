@@ -10,7 +10,7 @@ VIEW_LIST = [GeneralOrgView, OccupationSafetyView, ProfessionalRiskView,
              CommonDataView, LaborProtectionTrainingView,
              CollectiveAgreementView]
 urlpatterns = [
-    path('lk/', user_lk, name='lk'),
+    path('profile/', user_lk, name='lk'),
     path('organizations/add/', add_organisation),
     path('', homepage),
 ]

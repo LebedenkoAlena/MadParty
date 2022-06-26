@@ -153,9 +153,15 @@ h2 {
     text-align: center;
 }
 
+.org-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .org-list-grid {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-columns: repeat(4, 25%);
 }
 
 .org {
@@ -175,4 +181,23 @@ h2 {
 
 .org__actions {
     padding: 10px;
+    border-top: 1px solid black;
+}
+
+@media (max-width: 1440px) {
+    .org-list-grid {
+        grid-template-columns: repeat(3, 33%);
+    }
+}
+
+@media (max-width: 1024px) {
+    .org-list-grid {
+        grid-template-columns: repeat(2, 50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .org-list-grid {
+        grid-template-columns: repeat(1, 100%);
+    }
 }

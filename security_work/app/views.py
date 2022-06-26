@@ -39,7 +39,7 @@ def reject_gold_sign(request, org_id):
 @login_required
 def ask_for_a_gold_sign(request, org_id):
     organisation = Organisation.objects.get(pk=org_id)
-    if request.user.id == organisation.user_id:
+    if request.user.id == organisation.user_id.id:
         organisation.gold_sign = "UNDER_CONSIDERATION"
         organisation.gold_sign_date = None
         organisation.save()

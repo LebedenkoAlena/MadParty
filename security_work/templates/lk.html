@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col org-col">
             <div class="org-list-grid">
                 {% for org in organizations %}
                     <div class="org">
@@ -25,6 +25,9 @@
                             <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/edit.png' %}"></a>
                             <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/pdf.png' %}"></a>
                             <a href="{% url 'org-edit' pk=org.id %}"><img src="{% static 'img/xml.png' %}"></a>
+                            {% if org.gold_sign == 'Отсутствует' %}
+                                <a href="{% url 'get-gold-sign' org_id=org.id %}"><img src="{% static 'img/coin.png' %}"></a>
+                            {% endif %}
                         </div>
                     </div>
                 {% empty %}

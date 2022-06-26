@@ -14,7 +14,7 @@ urlpatterns = [
     path('organizations/edit/<int:pk>/', edit_organization, name="org-edit"),
     path('organizations/create/', create_organization, name="org-create"),
     path('', homepage),
-    path('get_gold_sign/<int:org_id>/', ask_for_a_gold_sign)
+    path('get_gold_sign/<int:org_id>/', ask_for_a_gold_sign, name="get-gold-sign")
 ]
 urlpatterns += [eval(
     f"path('organization/edit/<int:pk>/{i}', {VIEW_LIST[i]}.as_view())")

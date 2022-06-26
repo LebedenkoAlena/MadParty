@@ -16,7 +16,7 @@ from fpdf import FPDF
 
 def PassportToPDF(Org):
     pdf = FPDF()
-    pdf.add_font('Sans', style='', fname='font/DejaVuSans.ttf', uni=True)
+    pdf.add_font('Sans', style='', fname='static/font/DejaVuSans.ttf', uni=True)
     pdf.set_font("Sans", size=12)
     pdf.add_page()
     data = serializers.serialize("python", [Org])[0]["fields"]
@@ -35,7 +35,7 @@ def PassportToPDF(Org):
         pdf.multi_cell(col_width, row_height,
                  txt=str(value), border=1)
         pdf.ln(row_height)
-    pdf.output('simple_table.pdf')
+    pdf.output(f'{Org.id}.pdf')
 
 
 def user_lk(request):
@@ -65,7 +65,6 @@ def homepage(request):
     return render(request, "homepage.html")
 
 
-# TODO возможность загрузить файлы для каждого поля
 def add_organisation(request):
     form = OrganisationForm(request.POST or None)
     if request.method == "POST":

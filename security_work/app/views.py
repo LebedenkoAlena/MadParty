@@ -66,7 +66,9 @@ def user_lk(request):
 
 
 def homepage(request):
-    return render(request, "homepage.html")
+    if request.user.is_active:
+        return redirect("profile")
+    return redirect("login")
 
 
 def create_organization(request):

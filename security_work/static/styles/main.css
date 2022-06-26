@@ -53,6 +53,10 @@ h1 {
     font-size: 36px;
 }
 
+h2 {
+    font-size: 28px;
+}
+
 .header_burger {
     display: none;
     margin-left: auto;
@@ -61,6 +65,10 @@ h1 {
 @media (max-width: 768px) {
     h1 {
         font-size: 28px;
+    }
+
+    h2 {
+        font-size: 24px;
     }
 
     header nav {

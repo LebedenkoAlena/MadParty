@@ -76,7 +76,7 @@ label {
 
 .form-steps {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
 
 .form-step {
@@ -88,16 +88,37 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 35px;
+    margin-left: 35px;
     position: relative;
+    font-weight: 600;
+    color: #F7F7F7;
+
+    transition: 0.3s ease-in-out;
+}
+
+.form-step.active {
+    border-color: black;
+    color: black;
+}
+
+.form-step.active:before {
+    background: black;
 }
 
 .form-step::before {
     content: "";
     display: flex;
     position: absolute;
-    width: 4px;
-    height: 40px;
+    width: 40px;
+    height: 4px;
     background: #F7F7F7;
-    top: -40px;
+    left: -40px;
+}
+
+.form-step:first-child {
+    margin-left: 0;
+}
+
+.form-step:first-child:before {
+    display: none;
 }

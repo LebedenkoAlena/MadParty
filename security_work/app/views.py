@@ -13,33 +13,34 @@ from .forms import (GeneralOrgForm, OccupationSafetyForm,
 from django.contrib.auth.decorators import login_required
 from .models import Organisation
 
-from fpdf import FPDF
+import datetime as dt
 
 
-def passport_to_pdf(org):
-    pdf = FPDF()
-    pdf.add_font('Sans', style='', fname='static/font/DejaVuSans.ttf',
-                 uni=True)
-    pdf.set_font("Sans", size=12)
-    pdf.add_page()
-    data = serializers.serialize("python", [org])[0]["fields"]
-    col_width = pdf.w / 1.1
-    row_height = pdf.font_size * 1.5
-    for key, value in data.items():
-        if value is True:
-            value = 'Да'
-        if value is False:
-            value = 'Нет'
-        if key == 'is_risk_valuation_done' or key == 'is_valuation_done':
-            d = {"YES": "Да", "NO": "Нет", "PARTIALLY": "Частично"}
-            value = d.get(value, '')
-        pdf.multi_cell(col_width, row_height,
-                       txt=str(org._meta.get_field(key).verbose_name),
-                       border=1)
-        pdf.multi_cell(col_width, row_height,
-                       txt=str(value), border=1)
-        pdf.ln(row_height)
-    pdf.output(f'{org.id}.pdf')
+@login_required
+def accept_gold_sign(request, org_id):
+    if request.user.is_superuser:
+        organisation = Organisation.objects.get(pk=org_id).first()
+        organisation.gold_sign = "CONFIRMED"
+        organisation.gold_sign_date = dt.date.today()
+        organisation.save()
+
+
+@login_required
+def reject_gold_sign(request, org_id):
+    if request.user.is_superuser:
+        organisation = Organisation.objects.get(pk=org_id).first()
+        organisation.gold_sign = "MISSING"
+        organisation.gold_sign_date = None
+        organisation.save()
+
+
+@login_required
+def ask_for_a_gold_sign(request, org_id):
+    organisation = Organisation.objects.get(pk=org_id).first()
+    if request.user.id == organisation.user_id:
+        organisation.gold_sign = "UNDER_CONSIDERATION"
+        organisation.gold_sign_date = None
+        organisation.save()
 
 
 def user_lk(request):

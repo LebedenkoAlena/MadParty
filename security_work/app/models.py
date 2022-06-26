@@ -13,15 +13,15 @@ class Organisation(models.Model):
     user_id = models.ForeignKey(default=None, verbose_name='Пользователь', to=User, related_name='user', on_delete=models.SET_NULL, null=True)
 
     ANSWER_CHOICES = [
-        ("Yes", "Да"),
-        ("No", "Нет"),
-        ("Partially", "Частично"),
+        ("YES", "Да"),
+        ("NO", "Нет"),
+        ("PARTIALLY", "Частично"),
     ]
 
     GOLD_SIGN_CHOICES = [
-        ("Confirmed", "Подтвержен"),
-        ("Missing", "Отсутсвует"),
-        ("Under consideration", "На рассмотрении")
+        ("CONFIRMED", "Подтвержен"),
+        ("MISSING", "Отсутсвует"),
+        ("UNDER_CONSIDERATION", "На рассмотрении")
     ]
 
     # General

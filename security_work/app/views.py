@@ -23,6 +23,13 @@ def PassportToPDF(Org):
     col_width = pdf.w / 1.1
     row_height = pdf.font_size * 1.5
     for key, value in data.items():
+        if value is True:
+            value = 'Да'
+        if value is False:
+            value = 'Нет'
+        if key == 'is_valuation_done':
+            d = {"YES": "Да",  "NO": "Нет", "PARTIALLY": "Частично"}
+            value = d[value]
         pdf.multi_cell(col_width, row_height,
                  txt=str(Org._meta.get_field(key).verbose_name), border=1)
         pdf.multi_cell(col_width, row_height,

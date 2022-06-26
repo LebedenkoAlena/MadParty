@@ -44,6 +44,9 @@ def user_lk(request):
     if not request.user.is_authenticated:
         return redirect('/')
 
+    if request.user.is_superuser:
+        return redirect('/lk_admin')
+
     user = request.user
     organisations = Organisation.objects.filter(user_id=user.id).all()
     return render(request, "lk.html", {
@@ -52,6 +55,8 @@ def user_lk(request):
 
 
 def admin_lk(request):
+    if not request.user.is_superuser:
+        return redirect('/lk/')
     context = {}
     users = User.objects.all()
     for user in users:
@@ -73,7 +78,6 @@ def add_organisation(request):
         if form.is_valid():
             org = form.save()
             Organisation.objects.get(id=org.id).calculate_percents()
-            #_meta.models.id
             return redirect('/lk/')
 
     return render(request, "add_organisation.html", {

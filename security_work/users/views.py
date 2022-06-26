@@ -36,7 +36,7 @@ def create_user(request):
 class UserLoginView(LoginView):
     form_class = UserLoginForm
     authentication_form = UserLoginForm
-    success_url = '/'
+    success_url = '/lk/'
     template_name = 'users/login.html'
     redirect_authenticated_user = True
 

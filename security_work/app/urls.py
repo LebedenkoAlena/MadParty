@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import user_lk, homepage, edit_organization, create_organization, ask_for_a_gold_sign
+from .views import user_lk, homepage, edit_organization, create_organization, ask_for_a_gold_sign, accept_gold_sign, reject_gold_sign
 from .views import (GeneralOrgView, OccupationSafetyView, ProfessionalRiskView,
                     WorkingConditionsView, IndustrialInjuriesView,
                     CommonDataView, LaborProtectionTrainingView,
@@ -15,6 +15,8 @@ urlpatterns = [
     path('organizations/create/', create_organization, name="org-create"),
     path('', homepage),
     path('get_gold_sign/<int:org_id>/', ask_for_a_gold_sign, name="get-gold-sign")
+    path('accept_gold_sign/<int:org_id>/', accept_gold_sign),
+    path('reject_gold_sign/<int:org_id>/', reject_gold_sign)
 ]
 urlpatterns += [eval(
     f"path('organization/edit/<int:pk>/{i}', {VIEW_LIST[i]}.as_view())")
